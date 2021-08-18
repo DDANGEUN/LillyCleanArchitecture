@@ -20,4 +20,5 @@ Android Clean Architecture Sample.
 　  
 
 ## Blog
-...
+
+- [안드로이드 Clean Architecture 구현하기](https://ddangeun.tistory.com/138)
