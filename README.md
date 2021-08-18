@@ -10,7 +10,7 @@ Android Clean Architecture Sample.
 
 ## Preview
 
-<img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/LillyCleanArchitecture.gif" width="40%">
+<img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/blob/main/LillyCleanArchitecture.gif" width="40%">
 
 　  
 
