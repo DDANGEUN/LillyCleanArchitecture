@@ -3,7 +3,7 @@ Android Clean Architecture Sample.
 
 ## Info
 
-***Clean Architecture Sample with***
+***Android Clean Architecture Sample with***
 - Room
 - ...
 
