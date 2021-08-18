@@ -5,7 +5,11 @@ Android Clean Architecture Sample.
 
 ***Android Clean Architecture Sample with***
 - Room
-- ...
+- ...추가할 예정
+
+ **Using**
+  - [Koin](https://github.com/InsertKoinIO/koin)
+  - Theme Ref : https://material.io/design/material-studies/shrine.html#components
 
 
 ## Preview
