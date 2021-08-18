@@ -1,0 +1,47 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.LilyCleanArchitecture" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/lily_pink_1</item>
+        <item name="colorPrimaryVariant">@color/lily_pink_2</item>
+        <item name="colorOnPrimary">@color/lily_pink_typo</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/lily_pink_3</item>
+        <item name="colorSecondaryVariant">@color/lily_pink_4</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/rubik</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Shrine.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Shrine.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Shrine.LargeComponent</item>
+        <item name="textInputStyle">@style/Widget.Lily.TextInputLayout</item>
+        <item name="android:textColor">@color/lily_pink_typo</item>
+    </style>
+
+
+    <style name="ShapeAppearance.Shrine.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Shrine.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Shrine.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <style name="Widget.Lily.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="mock_labelColor">@color/lily_pink_3</item>
+        <item name="boxCollapsedPaddingTop">0dp</item>
+        <item name="contentPaddingBottom">0dp</item>
+        <item name="boxStrokeColor">@color/lily_pink_3</item>
+        <item name="hintTextColor">@color/lily_pink_3</item>
+    </style>
+</resources>
