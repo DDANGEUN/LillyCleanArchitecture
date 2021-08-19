@@ -9,7 +9,7 @@ Android Clean Architecture Sample.
 
  **Using**
   - [Koin](https://github.com/InsertKoinIO/koin)
-  - RxJava
+  - RxJava2
   - Theme Ref : https://material.io/design/material-studies/shrine.html#components
 
 
