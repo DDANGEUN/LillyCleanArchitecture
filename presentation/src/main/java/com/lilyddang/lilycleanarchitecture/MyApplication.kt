@@ -10,21 +10,19 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
 class MyApplication : Application() {
-
-    init{
+    init {
         instance = this
     }
 
     companion object {
         lateinit var instance: MyApplication
-        fun applicationContext() : Context {
+        fun applicationContext(): Context {
             return instance.applicationContext
         }
     }
 
     override fun onCreate() {
         super.onCreate()
-
         startKoin {
             // 로그를 찍어볼 수 있다.
             // 에러확인 - androidLogger(Level.ERROR)
@@ -34,10 +32,16 @@ class MyApplication : Application() {
             // assets/koin.properties 파일에서 프로퍼티를 가져옴
             androidFileProperties()
             //module list
-            modules(listOf(viewModelModule,repositoryModule,localDataModule,useCaseModule,apiModule))
+            modules(
+                listOf(
+                    viewModelModule,
+                    repositoryModule,
+                    localDataModule,
+                    useCaseModule,
+                    apiModule
+                )
+            )
         }
-
     }
-
 
 }

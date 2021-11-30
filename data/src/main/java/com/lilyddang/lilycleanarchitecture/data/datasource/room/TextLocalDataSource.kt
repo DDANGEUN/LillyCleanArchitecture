@@ -1,4 +1,4 @@
-package com.lilyddang.lilycleanarchitecture.data.datasource
+package com.lilyddang.lilycleanarchitecture.data.datasource.room
 
 import com.lilyddang.lilycleanarchitecture.data.model.TextEntity
 import io.reactivex.Completable

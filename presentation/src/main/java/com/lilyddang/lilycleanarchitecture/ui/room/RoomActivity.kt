@@ -12,7 +12,6 @@ import com.lilyddang.lilycleanarchitecture.base.BaseActivity
 import com.lilyddang.lilycleanarchitecture.databinding.ActivityRoomBinding
 import com.lilyddang.lilycleanarchitecture.viewmodel.RoomViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import android.app.Activity
 import android.view.inputmethod.InputMethodManager
 
 
@@ -133,12 +132,10 @@ class RoomActivity: BaseActivity<ActivityRoomBinding, RoomViewModel>(){
                             itemView.bottom.toFloat()
                         )
                         c.drawRect(background, p)
-                        /*
-                         * icon 추가할 수 있음.
-                         */
-                        //icon = BitmapFactory.decodeResource(getResources(), R.drawable.icon_png); //vector 불가!
-                        // RectF icon_dest = new RectF((float) itemView.getRight() - 2 * width, (float) itemView.getTop() + width, (float) itemView.getRight() - width, (float) itemView.getBottom() - width);
-                        //c.drawBitmap(icon, null, icon_dest, p);
+                        //icon 추가
+                        icon = BitmapFactory.decodeResource(resources, R.drawable.icon_delete)
+                        val iconDest = RectF(itemView.right - 2 * width, itemView.top + width, itemView.right - width, itemView.bottom - width)
+                        c.drawBitmap(icon, null, iconDest, p)
                     }
                 }
 

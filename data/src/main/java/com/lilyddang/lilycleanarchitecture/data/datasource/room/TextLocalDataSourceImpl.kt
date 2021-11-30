@@ -1,7 +1,6 @@
-package com.lilyddang.lilycleanarchitecture.data.datasource
+package com.lilyddang.lilycleanarchitecture.data.datasource.room
 
 import com.lilyddang.lilycleanarchitecture.data.dao.TextDao
-import com.lilyddang.lilycleanarchitecture.data.datasource.TextLocalDataSource
 import com.lilyddang.lilycleanarchitecture.data.model.TextEntity
 import io.reactivex.Completable
 import io.reactivex.Single

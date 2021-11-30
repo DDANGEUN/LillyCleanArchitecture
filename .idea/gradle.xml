@@ -13,7 +13,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/data" />
-            <option value="$PROJECT_DIR$/devices" />
+            <option value="$PROJECT_DIR$/device" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/presentation" />
           </set>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.lilyddang.lilycleanarchitecture.viewmodel.StartViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lily_pink_1">
+
+        <ImageView
+            android:id="@+id/iv_start_lily"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="30dp"
+            android:src="@drawable/flower_pattern"
+            app:layout_constraintBottom_toTopOf="@id/btn_start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_start_lily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Lily"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_start_info"
+            app:layout_constraintStart_toEndOf="@id/iv_start_lily"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_start_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="https://github.com/DDANGEUN\nhttps://ddangeun.tistory.com/\npoetic_star@naver.com"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_start_lily"
+            app:layout_constraintStart_toStartOf="@id/tv_start_lily"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <CheckBox
+            android:gravity="bottom"
+            android:paddingBottom="7dp"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:id="@+id/cb_start_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/lily_pink_3"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toEndOf="@id/btn_start"
+            app:layout_constraintBottom_toBottomOf="@id/btn_start"
+            android:textSize="12sp"
+            android:onCheckedChanged="@{(compoundButton, checked)-> viewModel.skipCheckChanged(compoundButton, checked)}"
+            android:text="다음부터 보지 않기" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="10dp"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/round_background_color3"
+            android:scaleType="centerCrop"
+            android:text="시작하기"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/iv_start_lily"
+            app:layout_constraintTop_toBottomOf="@id/iv_start_lily" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

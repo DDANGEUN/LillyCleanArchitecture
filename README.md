@@ -5,6 +5,7 @@ Android Clean Architecture Sample.
 
 ***Android Clean Architecture Sample with***
 - Room
+- SharedPreference(skipable start view)
 - ...추가할 예정
 
  **Using**

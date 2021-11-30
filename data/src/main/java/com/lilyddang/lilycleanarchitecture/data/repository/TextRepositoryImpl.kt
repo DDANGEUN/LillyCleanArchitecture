@@ -1,7 +1,7 @@
 package com.lilyddang.lilycleanarchitecture.data.repository
 
 import com.lilyddang.lilycleanarchitecture.data.NO_DATA_FROM_LOCAL_DB
-import com.lilyddang.lilycleanarchitecture.data.datasource.TextLocalDataSource
+import com.lilyddang.lilycleanarchitecture.data.datasource.room.TextLocalDataSource
 import com.lilyddang.lilycleanarchitecture.data.mapper.map
 import com.lilyddang.lilycleanarchitecture.data.mapper.mapperToText
 import com.lilyddang.lilycleanarchitecture.domain.model.TextItem
@@ -34,12 +34,7 @@ class TextRepositoryImpl(private val textLocalDataSource: TextLocalDataSource): 
     }
 
     override fun insertText(textItem: TextItem): Single<Long> = textLocalDataSource.insertText(textItem.map())
-
-    override fun deleteText(textItem: TextItem): Completable{
-
-        return textLocalDataSource.delete(textItem.map())
-    }
-
+    override fun deleteText(textItem: TextItem): Completable = textLocalDataSource.delete(textItem.map())
     override fun deleteAllTexts(): Completable = textLocalDataSource.deleteAllTexts()
 
 }
