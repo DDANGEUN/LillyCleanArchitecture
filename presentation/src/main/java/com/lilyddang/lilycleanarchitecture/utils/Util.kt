@@ -1,8 +1,15 @@
 package com.lilyddang.lilycleanarchitecture.utils
 
 import android.widget.Toast
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.lilyddang.lilycleanarchitecture.MyApplication
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+
 class Util {
     companion object {
         /**
@@ -18,6 +25,11 @@ class Util {
                 //"custom" -> { showCustomNotification(msg)}
             }
 
+        }
+        fun LifecycleOwner.repeatOnStarted(block: suspend CoroutineScope.() -> Unit) {
+            lifecycleScope.launch {
+                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED, block)
+            }
         }
     }
 }

@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.LilyCleanArchitecture" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/lily_pink_1</item>
-        <item name="colorPrimaryVariant">@color/lily_pink_2</item>
-        <item name="colorOnPrimary">@color/lily_pink_typo</item>
+        <item name="colorPrimary">@color/lilly_pink_1</item>
+        <item name="colorPrimaryVariant">@color/lilly_pink_2</item>
+        <item name="colorOnPrimary">@color/lilly_pink_typo</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/lily_pink_3</item>
-        <item name="colorSecondaryVariant">@color/lily_pink_4</item>
+        <item name="colorSecondary">@color/lilly_pink_3</item>
+        <item name="colorSecondaryVariant">@color/lilly_pink_4</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
@@ -18,7 +18,7 @@
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Shrine.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Shrine.LargeComponent</item>
         <item name="textInputStyle">@style/Widget.Lily.TextInputLayout</item>
-        <item name="android:textColor">@color/lily_pink_typo</item>
+        <item name="android:textColor">@color/lilly_pink_typo</item>
     </style>
 
 
@@ -38,10 +38,10 @@
     </style>
 
     <style name="Widget.Lily.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="mock_labelColor">@color/lily_pink_3</item>
+        <item name="mock_labelColor">@color/lilly_pink_3</item>
         <item name="boxCollapsedPaddingTop">0dp</item>
         <item name="contentPaddingBottom">0dp</item>
-        <item name="boxStrokeColor">@color/lily_pink_3</item>
-        <item name="hintTextColor">@color/lily_pink_3</item>
+        <item name="boxStrokeColor">@color/lilly_pink_3</item>
+        <item name="hintTextColor">@color/lilly_pink_3</item>
     </style>
 </resources>

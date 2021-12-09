@@ -10,12 +10,13 @@
 
     <color name="transparent">#00000000</color>
 
-    <color name="lily_pink_1">#fedbd0</color>
-    <color name="lily_pink_2">#f7b6b7</color>
-    <color name="lily_pink_3">#faa398</color>
-    <color name="lily_pink_4">#fa98aa</color>
-    <color name="lily_skyblue">#5fafdd</color>
-    <color name="lily_gray_1">#cccccc</color>
-    <color name="lily_gray_2">#848484</color>
-    <color name="lily_pink_typo">#442c2e</color>
+    <color name="lilly_pink_1">#fedbd0</color>
+    <color name="lilly_pink_2">#f7b6b7</color>
+    <color name="lilly_pink_3">#faa398</color>
+    <color name="lilly_pink_4">#fa98aa</color>
+    <color name="lilly_blue_1">#d1edff</color>
+    <color name="lilly_blue_2">#5fafdd</color>
+    <color name="lilly_gray_1">#cccccc</color>
+    <color name="lilly_gray_2">#848484</color>
+    <color name="lilly_pink_typo">#442c2e</color>
 </resources>

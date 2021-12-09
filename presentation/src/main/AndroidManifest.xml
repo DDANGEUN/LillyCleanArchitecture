@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lilyddang.lilycleanarchitecture">
 
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name="com.lilyddang.lilycleanarchitecture.MyApplication"
         android:icon="@drawable/app_icon"
@@ -9,7 +16,7 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.LilyCleanArchitecture">
-        <activity android:name="com.lilyddang.lilycleanarchitecture.ui.StartActivity"
+        <activity android:name="com.lilyddang.lilycleanarchitecture.ui.main.StartActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -18,9 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.lilyddang.lilycleanarchitecture.ui.MainActivity"
+        <activity android:name="com.lilyddang.lilycleanarchitecture.ui.main.MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.lilyddang.lilycleanarchitecture.ui.ble.BleActivity"
+        <activity android:name="com.lilyddang.lilycleanarchitecture.ui.ble.ScanActivity"
             android:screenOrientation="portrait"/>
         <activity android:name="com.lilyddang.lilycleanarchitecture.ui.room.RoomActivity"
             android:screenOrientation="portrait"/>

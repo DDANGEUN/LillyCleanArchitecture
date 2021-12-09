@@ -4,8 +4,8 @@ import com.lilyddang.lilycleanarchitecture.data.NO_DATA_FROM_LOCAL_DB
 import com.lilyddang.lilycleanarchitecture.data.datasource.room.TextLocalDataSource
 import com.lilyddang.lilycleanarchitecture.data.mapper.map
 import com.lilyddang.lilycleanarchitecture.data.mapper.mapperToText
-import com.lilyddang.lilycleanarchitecture.domain.model.TextItem
-import com.lilyddang.lilycleanarchitecture.domain.repository.TextRepository
+import com.lilyddang.lilycleanarchitecture.domain.room.model.TextItem
+import com.lilyddang.lilycleanarchitecture.domain.room.TextRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single

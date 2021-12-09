@@ -15,12 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/_20dp"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
         <TextView
             android:paddingTop="@dimen/_10dp"
             android:paddingBottom="@dimen/_10dp"
-            android:id="@+id/tv_status"
+            android:id="@+id/tv_room_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.statusText}"
@@ -30,18 +30,18 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tl_puttext"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_50dp"
+            android:layout_height="@dimen/_55dp"
             android:layout_marginStart="@dimen/_10dp"
             android:hint="search or insert text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/btn_puttext"
-            app:layout_constraintTop_toBottomOf="@id/tv_status">
+            app:layout_constraintTop_toBottomOf="@id/tv_room_status">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_puttext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_13sp" />
+                android:textSize="@dimen/_13dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -50,7 +50,7 @@
             android:layout_height="@dimen/_40dp"
             android:layout_marginStart="@dimen/_10dp"
             android:background="@drawable/button_back2"
-            android:textSize="@dimen/_14sp"
+            android:textSize="@dimen/_14dp"
             android:text="insert"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/tl_puttext"
@@ -64,8 +64,8 @@
             android:layout_height="0dp"
             android:gravity="center"
             android:text="No Item Inserted"
-            android:textColor="@color/lily_gray_2"
-            android:textSize="@dimen/_17sp"
+            android:textColor="@color/lilly_gray_2"
+            android:textSize="@dimen/_17dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tl_puttext" />
 

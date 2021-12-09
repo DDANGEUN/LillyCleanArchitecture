@@ -6,11 +6,12 @@ Android Clean Architecture Sample.
 ***Android Clean Architecture Sample with***
 - Room
 - SharedPreference(skipable start view)
-- ...추가할 예정
+- RxBle
 
  **Using**
   - [Koin](https://github.com/InsertKoinIO/koin)
-  - RxJava2
+  - [RxJava2](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)
+  - [RxBle](https://github.com/dariuszseweryn/RxAndroidBle)
   - Theme Ref : https://material.io/design/material-studies/shrine.html#components
 
 

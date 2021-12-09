@@ -1,7 +1,7 @@
 package com.lilyddang.lilycleanarchitecture.data.mapper
 
 import com.lilyddang.lilycleanarchitecture.data.model.TextEntity
-import com.lilyddang.lilycleanarchitecture.domain.model.TextItem
+import com.lilyddang.lilycleanarchitecture.domain.room.model.TextItem
 
 
 // data -> domain

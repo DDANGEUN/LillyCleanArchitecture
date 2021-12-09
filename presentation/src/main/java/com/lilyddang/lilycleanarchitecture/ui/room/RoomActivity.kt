@@ -2,7 +2,6 @@ package com.lilyddang.lilycleanarchitecture.ui.room
 
 import android.graphics.*
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +12,8 @@ import com.lilyddang.lilycleanarchitecture.databinding.ActivityRoomBinding
 import com.lilyddang.lilycleanarchitecture.viewmodel.RoomViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.view.inputmethod.InputMethodManager
+import com.lilyddang.lilycleanarchitecture.utils.Util.Companion.repeatOnStarted
+import kotlinx.coroutines.flow.collect
 
 
 class RoomActivity: BaseActivity<ActivityRoomBinding, RoomViewModel>(){
@@ -53,12 +54,11 @@ class RoomActivity: BaseActivity<ActivityRoomBinding, RoomViewModel>(){
         }
     }
     override fun initObserver() {
-        viewModel.apply{
-            textListObservable.observe(this@RoomActivity,{
-                textListAdpater?.setItem(viewModel.textList)
-            })
-
-        }
+        repeatOnStarted {viewModel.apply {
+            textListObservable.collect{
+                textListAdpater?.setItem(it)
+            }
+        }}
     }
 
     /**
@@ -93,7 +93,7 @@ class RoomActivity: BaseActivity<ActivityRoomBinding, RoomViewModel>(){
                 if (direction == ItemTouchHelper.LEFT) {
                     textListAdpater?.getItem()?.get(position)?.let { viewModel.deleteText(it) }
                 } else {
-                    //오른쪽으로 밀었을때.
+                    // 오른쪽으로 밀었을때
                 }
             }
 
@@ -122,9 +122,9 @@ class RoomActivity: BaseActivity<ActivityRoomBinding, RoomViewModel>(){
                         itemView.bottom.toFloat() - itemView.top.toFloat()
                     val width = height / 3
                     if (dX > 0) {
-                        //오른쪽으로 밀었을 때
+                        // 오른쪽으로 밀었을 때
                     } else {
-                        p.color = ContextCompat.getColor(this@RoomActivity,R.color.lily_pink_2)
+                        p.color = Color.parseColor("#D32F2F")
                         val background = RectF(
                             itemView.right.toFloat() + dX,
                             itemView.top.toFloat(),
@@ -132,7 +132,7 @@ class RoomActivity: BaseActivity<ActivityRoomBinding, RoomViewModel>(){
                             itemView.bottom.toFloat()
                         )
                         c.drawRect(background, p)
-                        //icon 추가
+                        // icon
                         icon = BitmapFactory.decodeResource(resources, R.drawable.icon_delete)
                         val iconDest = RectF(itemView.right - 2 * width, itemView.top + width, itemView.right - width, itemView.bottom - width)
                         c.drawBitmap(icon, null, iconDest, p)

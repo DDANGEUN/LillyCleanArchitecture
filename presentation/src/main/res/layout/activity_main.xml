@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10dp"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.main.MainActivity">
         <TextView
             android:layout_marginBottom="@dimen/_10dp"
             android:id="@+id/tv_main"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Hi! This is Lily's Clean Architecture Sample."
             android:textStyle="bold"
-            android:textSize="@dimen/_16sp"
+            android:textSize="@dimen/_16dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -40,7 +40,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
             <Button
-                android:textSize="@dimen/_14sp"
+                android:textSize="@dimen/_14dp"
                 android:id="@+id/btn_room"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_60dp"
@@ -53,7 +53,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:textSize="@dimen/_14sp"
+                android:textSize="@dimen/_14dp"
                 android:id="@+id/btn_ble"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_60dp"

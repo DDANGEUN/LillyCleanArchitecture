@@ -1,5 +1,5 @@
 include ':domain'
 include ':data'
 include ':presentation'
-rootProject.name = "LilyCleanArchitecture"
+rootProject.name = "LillyCleanArchitecture"
 include ':device'

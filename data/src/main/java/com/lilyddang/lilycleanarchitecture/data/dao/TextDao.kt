@@ -10,10 +10,10 @@ interface TextDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTexts(texts: TextEntity): Single<Long>
 
-    @Query("SELECT * FROM text")
+    @Query("SELECT * FROM text ORDER BY id DESC")
     fun getAllTexts(): Single<List<TextEntity>>
 
-    @Query("SELECT * FROM text WHERE content LIKE '%' || :content || '%'")
+    @Query("SELECT * FROM text WHERE content LIKE '%' || :content || '%' ORDER BY id DESC")
     fun getTextsByContent(content: String): Single<List<TextEntity>>
 
     @Delete

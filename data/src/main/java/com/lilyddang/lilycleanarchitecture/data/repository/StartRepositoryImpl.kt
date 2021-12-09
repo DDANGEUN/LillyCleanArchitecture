@@ -1,7 +1,7 @@
 package com.lilyddang.lilycleanarchitecture.data.repository
 
 import com.lilyddang.lilycleanarchitecture.data.datasource.start.StartDataSource
-import com.lilyddang.lilycleanarchitecture.domain.repository.StartRepository
+import com.lilyddang.lilycleanarchitecture.domain.sharedpreference.StartRepository
 
 class StartRepositoryImpl(private val startDataSource: StartDataSource) :
     StartRepository {

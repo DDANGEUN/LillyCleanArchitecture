@@ -5,23 +5,42 @@
       <map>
         <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/button_back1.xml" value="0.14351851851851852" />
         <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/button_back2.xml" value="0.253125" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/circle_white.xml" value="0.16418918918918918" />
         <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/flower_pattern.xml" value="0.253125" />
         <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/frame_flower.xml" value="0.253125" />
         <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/ic_launcher_background.xml" value="0.253125" />
         <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/ic_launcher_foreground.xml" value="0.16822916666666668" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/icon_expand_more.xml" value="0.1625418060200669" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_blue1_7.xml" value="0.16418918918918918" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_blue2_10.xml" value="0.1625418060200669" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_blue2_50.xml" value="0.1625418060200669" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_color1.xml" value="0.15067567567567566" />
         <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_color2.xml" value="0.253125" />
         <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_color3.xml" value="0.253125" />
-        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/activity_ble.xml" value="0.264" />
-        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/activity_room.xml" value="0.264" />
-        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/activity_start.xml" value="0.264" />
-        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/item_text.xml" value="0.176" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_disable.xml" value="0.15067567567567566" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_gray1_10.xml" value="0.1625418060200669" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_gray1_50.xml" value="0.1625418060200669" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_item.xml" value="0.15067567567567566" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_pink1_10.xml" value="0.16418918918918918" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_pink1_50.xml" value="0.16418918918918918" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_pink1_7.xml" value="0.16418918918918918" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_pink3_50.xml" value="0.16418918918918918" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_skyblue.xml" value="0.15067567567567566" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/drawable/round_background_white_15.xml" value="0.16418918918918918" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/activity_ble.xml" value="0.1" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/activity_room.xml" value="0.24691358024691357" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/activity_scan.xml" value="0.128" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/activity_start.xml" value="0.1" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/dialog_simple.xml" value="0.264" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/item_scanlist.xml" value="0.264" />
+        <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/layout/item_text.xml" value="0.1" />
         <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.16822916666666668" />
         <entry key="..\:/00Lilly/05LilyCleanArchitecture/presentation/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.16822916666666668" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

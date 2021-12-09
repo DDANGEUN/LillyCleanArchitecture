@@ -2,20 +2,19 @@ package com.lilyddang.lilycleanarchitecture.viewmodel
 
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import com.lilyddang.lilycleanarchitecture.base.BaseViewModel
 import com.lilyddang.lilycleanarchitecture.data.NO_DATA_FROM_LOCAL_DB
-import com.lilyddang.lilycleanarchitecture.domain.model.TextItem
-import com.lilyddang.lilycleanarchitecture.domain.usecase.DeleteTextUseCase
-import com.lilyddang.lilycleanarchitecture.domain.usecase.GetAllLocalTextsUseCase
-import com.lilyddang.lilycleanarchitecture.domain.usecase.GetSearchTextsUseCase
-import com.lilyddang.lilycleanarchitecture.domain.usecase.InsertTextUseCase
+import com.lilyddang.lilycleanarchitecture.domain.room.model.TextItem
+import com.lilyddang.lilycleanarchitecture.domain.usecase.room.DeleteTextUseCase
+import com.lilyddang.lilycleanarchitecture.domain.usecase.room.GetAllLocalTextsUseCase
+import com.lilyddang.lilycleanarchitecture.domain.usecase.room.GetSearchTextsUseCase
+import com.lilyddang.lilycleanarchitecture.domain.usecase.room.InsertTextUseCase
 import com.lilyddang.lilycleanarchitecture.utils.Util
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,8 +28,7 @@ class RoomViewModel(
 ) : BaseViewModel() {
 
     val statusText = ObservableField("Hi! Let's put text in Local DB")
-    var textList: List<TextItem> = ArrayList()
-    val textListObservable: MutableLiveData<List<TextItem>> = MutableLiveData(textList)
+    val textListObservable: MutableStateFlow<List<TextItem>> = MutableStateFlow(ArrayList())
     val noDataNotification = ObservableBoolean(false)
 
     @SuppressLint("SimpleDateFormat")
@@ -38,7 +36,7 @@ class RoomViewModel(
         val simpleDate = SimpleDateFormat("yyyy-MM-dd HH:mm")
         val strNow: String = simpleDate.format(Date(System.currentTimeMillis()))
         CoroutineScope(Dispatchers.IO).launch {
-            compositeDisposable.add(
+            addDisposable(
                 insertTextUseCase.execute(TextItem(null,strNow, content)).subscribe({ id->
                     statusText.set("$strNow `$content` is inserted.")
                     getAllTexts()
@@ -53,7 +51,7 @@ class RoomViewModel(
 
     fun deleteText(textItem: TextItem){
         CoroutineScope(Dispatchers.IO).launch {
-            compositeDisposable.add(
+            addDisposable(
                 deleteTextUseCase.execute(textItem).subscribe({
                     statusText.set("`${textItem.content}` is deleted.")
                     getAllTexts()
@@ -68,12 +66,11 @@ class RoomViewModel(
 
     fun getAllTexts() {
         CoroutineScope(Dispatchers.IO).launch {
-            compositeDisposable.add(
+            addDisposable(
                 getAllLocalTextsUseCase.execute().subscribe({
                     CoroutineScope(Dispatchers.Main).launch {
                         noDataNotification.set(false)
-                        textList = it
-                        textListObservable.value = textList
+                        textListObservable.value = it
                     }
                 }, {
                     CoroutineScope(Dispatchers.Main).launch {
@@ -90,12 +87,11 @@ class RoomViewModel(
 
     fun getSearchTexts(query:String){
         CoroutineScope(Dispatchers.IO).launch {
-            compositeDisposable.add(
+            addDisposable(
                 getSearchTextsUseCase.execute(query).subscribe({
                     CoroutineScope(Dispatchers.Main).launch {
                         noDataNotification.set(false)
-                        textList = it
-                        textListObservable.value = textList
+                        textListObservable.value = it
                     }
                 }, {
                     CoroutineScope(Dispatchers.Main).launch {

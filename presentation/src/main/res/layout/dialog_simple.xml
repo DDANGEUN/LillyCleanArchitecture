@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/round_background_white_15"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/_300dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_20dp">
+
+        <TextView
+            android:id="@+id/tv_simpledialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:gravity="center"
+            android:textColor="@color/lilly_pink_typo"
+            android:textSize="@dimen/_17dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_simpledialog_ok"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_simpledialog_ok"
+            android:layout_width="@dimen/_120dp"
+            android:layout_height="@dimen/_30dp"
+            android:background="@drawable/round_background_pink3_50"
+            android:text="확인"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_simpledialog_cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_simpledialog" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_simpledialog_cancel"
+            android:layout_width="@dimen/_120dp"
+            android:layout_height="@dimen/_30dp"
+            android:background="@drawable/round_background_pink1_50"
+            android:text="취소"
+            android:textColor="@color/lilly_pink_typo"
+            android:textSize="@dimen/_14dp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_simpledialog_ok"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_simpledialog_ok"
+            app:layout_constraintTop_toTopOf="@id/btn_simpledialog_ok" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
