@@ -16,7 +16,7 @@ import com.lilyddang.lilycleanarchitecture.utils.Util.Companion.repeatOnStarted
 import kotlinx.coroutines.flow.collect
 
 
-class RoomActivity: BaseActivity<ActivityRoomBinding, RoomViewModel>(){
+class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
 
     override val layoutResID: Int = R.layout.activity_room
     override val viewModel by viewModel<RoomViewModel>()
@@ -25,24 +25,27 @@ class RoomActivity: BaseActivity<ActivityRoomBinding, RoomViewModel>(){
     override fun initVariable() {
         binding.viewModel = viewModel
     }
-    override fun initView(){
+
+    override fun initView() {
         // recycler view
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this,
-            LinearLayoutManager.VERTICAL,false)
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL, false
+        )
         textListAdpater = TextListAdapter()
-        binding.apply{
-            rvTextList.apply{
+        binding.apply {
+            rvTextList.apply {
                 setHasFixedSize(true)
                 this.layoutManager = layoutManager
                 adapter = textListAdpater
             }
         }
-        viewModel.getAllTexts()
         initSwipe()
 
     }
+
     override fun initListener() {
-        binding.apply{
+        binding.apply {
             etPuttext.doOnTextChanged { text, _, _, _ ->
                 viewModel?.getSearchTexts(text.toString())
             }
@@ -53,12 +56,13 @@ class RoomActivity: BaseActivity<ActivityRoomBinding, RoomViewModel>(){
             }
         }
     }
+
     override fun initObserver() {
-        repeatOnStarted {viewModel.apply {
-            textListObservable.collect{
+        repeatOnStarted {
+            viewModel.textListObservable.collect {
                 textListAdpater?.setItem(it)
             }
-        }}
+        }
     }
 
     /**
@@ -134,7 +138,12 @@ class RoomActivity: BaseActivity<ActivityRoomBinding, RoomViewModel>(){
                         c.drawRect(background, p)
                         // icon
                         icon = BitmapFactory.decodeResource(resources, R.drawable.icon_delete)
-                        val iconDest = RectF(itemView.right - 2 * width, itemView.top + width, itemView.right - width, itemView.bottom - width)
+                        val iconDest = RectF(
+                            itemView.right - 2 * width,
+                            itemView.top + width,
+                            itemView.right - width,
+                            itemView.bottom - width
+                        )
                         c.drawBitmap(icon, null, iconDest, p)
                     }
                 }

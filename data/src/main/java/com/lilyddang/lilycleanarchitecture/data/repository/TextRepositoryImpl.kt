@@ -11,15 +11,8 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 
 class TextRepositoryImpl(private val textLocalDataSource: TextLocalDataSource): TextRepository {
-    override fun getAllLocalTexts(): Flowable<List<TextItem>> {
-        return textLocalDataSource.getAllTexts().flatMapPublisher { localTexts->
-            if (localTexts.isEmpty()) {
-                Flowable.error(IllegalStateException(NO_DATA_FROM_LOCAL_DB))
-            } else {
-                Flowable.just(mapperToText(localTexts))
-            }
-        }
-    }
+    override fun getAllLocalTexts(): Flowable<List<TextItem>>
+        = textLocalDataSource.getAllTexts().flatMap { localTexts-> Flowable.just(mapperToText(localTexts)) }
 
     override fun getLocalSearchTexts(query: String): Flowable<List<TextItem>> {
         return textLocalDataSource.getSearchTexts(query)
