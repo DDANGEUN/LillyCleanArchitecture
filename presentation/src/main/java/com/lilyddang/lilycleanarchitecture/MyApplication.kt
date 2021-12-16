@@ -38,6 +38,7 @@ class MyApplication : Application() {
                     repositoryModule,
                     localDataModule,
                     useCaseModule,
+                    deviceModule,
                     apiModule
                 )
             )

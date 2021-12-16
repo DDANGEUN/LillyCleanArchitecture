@@ -25,6 +25,7 @@ import com.lilyddang.lilycleanarchitecture.viewmodel.ScanViewModel
 import com.lilyddang.lilycleanarchitecture.viewmodel.MainViewModel
 import com.lilyddang.lilycleanarchitecture.viewmodel.RoomViewModel
 import com.lilyddang.lilycleanarchitecture.viewmodel.StartViewModel
+import com.polidea.rxandroidble2.RxBleClient
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -39,7 +40,7 @@ val viewModelModule = module {
 val repositoryModule: Module = module {
     single<TextRepository> { TextRepositoryImpl(get()) }
     single<StartRepository> { StartRepositoryImpl(get()) }
-    single<BleRepository> { BleRepositoryImpl() }
+    single<BleRepository> { BleRepositoryImpl(get()) }
 }
 
 val localDataModule: Module = module {
@@ -73,6 +74,9 @@ val useCaseModule: Module = module {
     single<LiveDeviceConnectStateUseCase>{ LiveDeviceConnectStateUseCase(get()) }
     single<GetDeviceNameUseCase>{ GetDeviceNameUseCase(get())}
     single<DisconnectBleDeviceUseCase>{ DisconnectBleDeviceUseCase(get())}
+}
+val deviceModule: Module = module {
+    single<RxBleClient>{ RxBleClient.create(get()) }
 }
 val apiModule: Module = module {
     //..

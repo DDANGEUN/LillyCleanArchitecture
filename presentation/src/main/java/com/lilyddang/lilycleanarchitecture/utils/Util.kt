@@ -22,7 +22,6 @@ class Util {
                 "info"->{ Toasty.info(MyApplication.applicationContext(), msg, Toast.LENGTH_LONG).show()}
                 "warning"->{ Toasty.warning(MyApplication.applicationContext(), msg, Toast.LENGTH_LONG).show()}
                 "normal"->{ Toasty.normal(MyApplication.applicationContext(), msg, Toast.LENGTH_LONG).show()}
-                //"custom" -> { showCustomNotification(msg)}
             }
 
         }

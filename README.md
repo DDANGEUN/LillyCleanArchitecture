@@ -11,7 +11,7 @@ Android Clean Architecture Sample.
  **Using**
   - [Koin](https://github.com/InsertKoinIO/koin)
   - [RxJava2](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)
-  - [RxBle](https://github.com/dariuszseweryn/RxAndroidBle)
+  - [RxAndroidBle](https://github.com/dariuszseweryn/RxAndroidBle)
   - Theme Ref : https://material.io/design/material-studies/shrine.html#components
 
 

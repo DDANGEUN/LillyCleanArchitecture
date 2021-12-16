@@ -20,12 +20,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.util.*
 
-class BleRepositoryImpl : BleRepository {
+class BleRepositoryImpl(private val rxBleClient: RxBleClient) : BleRepository {
     private var rxBleConnection: RxBleConnection? = null
     private var conStateDisposable: Disposable? = null
     private var mConnectSubscription: Disposable? = null
 
-    override var deviceEvent = MutableSharedFlow<DeviceEvent<Boolean>>()
+    override var deviceConnectionEvent = MutableSharedFlow<DeviceEvent<Boolean>>()
     override var isDeviceConnected = MutableStateFlow(false)
     override var deviceName = MutableStateFlow("")
 
@@ -33,10 +33,9 @@ class BleRepositoryImpl : BleRepository {
      * Scan
      */
     override fun scanBleDevices(
-        context: Context,
         settings: ScanSettings,
         scanFilter: ScanFilter
-    ): Observable<ScanResult> = RxBleClient.create(context).scanBleDevices(settings, scanFilter)
+    ): Observable<ScanResult> = rxBleClient.scanBleDevices(settings, scanFilter)
 
     /**
      * Connect & Discover Services
@@ -76,7 +75,7 @@ class BleRepositoryImpl : BleRepository {
         when (connectionState) {
             RxBleConnection.RxBleConnectionState.CONNECTED -> {
                 CoroutineScope(Dispatchers.IO).launch {
-                    deviceEvent.emit(DeviceEvent.isDeviceConnected(device.name ?: "", true))
+                    deviceConnectionEvent.emit(DeviceEvent.isDeviceConnected(device.name ?: "", true))
                     isDeviceConnected.value = true
                     deviceName.value = device.name ?: ""
                 }
@@ -86,7 +85,7 @@ class BleRepositoryImpl : BleRepository {
             RxBleConnection.RxBleConnectionState.DISCONNECTED -> {
                 conStateDisposable?.dispose()
                 CoroutineScope(Dispatchers.IO).launch {
-                    deviceEvent.emit(DeviceEvent.isDeviceConnected(device.name ?: "", false))
+                    deviceConnectionEvent.emit(DeviceEvent.isDeviceConnected(device.name ?: "", false))
                     isDeviceConnected.value = false
                     deviceName.value = ""
                 }
