@@ -27,7 +27,7 @@
         </activity>
         <activity android:name="com.lilyddang.lilycleanarchitecture.ui.main.MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.lilyddang.lilycleanarchitecture.ui.ble.ScanActivity"
+        <activity android:name="com.lilyddang.lilycleanarchitecture.ui.ble.BleActivity"
             android:screenOrientation="portrait"/>
         <activity android:name="com.lilyddang.lilycleanarchitecture.ui.room.RoomActivity"
             android:screenOrientation="portrait"/>

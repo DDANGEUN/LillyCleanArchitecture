@@ -4,7 +4,7 @@ import android.content.Intent
 import com.lilyddang.lilycleanarchitecture.R
 import com.lilyddang.lilycleanarchitecture.base.BaseActivity
 import com.lilyddang.lilycleanarchitecture.databinding.ActivityMainBinding
-import com.lilyddang.lilycleanarchitecture.ui.ble.ScanActivity
+import com.lilyddang.lilycleanarchitecture.ui.ble.BleActivity
 import com.lilyddang.lilycleanarchitecture.ui.room.RoomActivity
 import com.lilyddang.lilycleanarchitecture.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,7 +32,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(){
 
             }
             btnBle.setOnClickListener {
-                val intent = Intent(this@MainActivity, ScanActivity::class.java)
+                val intent = Intent(this@MainActivity, BleActivity::class.java)
                 startActivity(intent)
             }
         }

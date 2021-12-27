@@ -39,6 +39,7 @@ class MyApplication : Application() {
                     localDataModule,
                     useCaseModule,
                     deviceModule,
+                    fragmentModule,
                     apiModule
                 )
             )

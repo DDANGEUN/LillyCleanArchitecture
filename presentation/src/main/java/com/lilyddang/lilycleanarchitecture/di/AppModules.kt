@@ -21,7 +21,9 @@ import com.lilyddang.lilycleanarchitecture.domain.usecase.room.GetSearchTextsUse
 import com.lilyddang.lilycleanarchitecture.domain.usecase.room.InsertTextUseCase
 import com.lilyddang.lilycleanarchitecture.domain.usecase.sharedpreference.GetInfoSkipUseCase
 import com.lilyddang.lilycleanarchitecture.domain.usecase.sharedpreference.InsertInfoSkipUseCase
-import com.lilyddang.lilycleanarchitecture.viewmodel.ScanViewModel
+import com.lilyddang.lilycleanarchitecture.ui.ble.ReadFragment
+import com.lilyddang.lilycleanarchitecture.ui.ble.ScanFragment
+import com.lilyddang.lilycleanarchitecture.viewmodel.BleViewModel
 import com.lilyddang.lilycleanarchitecture.viewmodel.MainViewModel
 import com.lilyddang.lilycleanarchitecture.viewmodel.RoomViewModel
 import com.lilyddang.lilycleanarchitecture.viewmodel.StartViewModel
@@ -33,7 +35,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { MainViewModel() }
     viewModel { RoomViewModel(get(),get(),get(),get()) }
-    viewModel { ScanViewModel(get()) }
+    viewModel { BleViewModel(get()) }
     viewModel { StartViewModel(get(),get()) }
 }
 
@@ -77,6 +79,14 @@ val useCaseModule: Module = module {
 }
 val deviceModule: Module = module {
     single<RxBleClient>{ RxBleClient.create(get()) }
+}
+val fragmentModule = module{
+    single{
+        ScanFragment()
+    }
+    single{
+        ReadFragment()
+    }
 }
 val apiModule: Module = module {
     //..

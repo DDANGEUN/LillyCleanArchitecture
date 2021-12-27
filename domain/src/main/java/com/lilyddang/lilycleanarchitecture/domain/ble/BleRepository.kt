@@ -14,14 +14,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 interface BleRepository {
 
     var deviceConnectionEvent: MutableSharedFlow<DeviceEvent<Boolean>>
-
     var isDeviceConnected: MutableStateFlow<Boolean>
-    var deviceName: MutableStateFlow<String>
 
     fun scanBleDevices(settings: ScanSettings, scanFilter: ScanFilter): Observable<ScanResult>
     fun connectBleDevice(device: RxBleDevice)
     fun disconnectBleDevice()
     fun bleNotification(): Observable<ByteArray>?
     fun writeData(sendByteData: ByteArray): Single<ByteArray>?
+    fun getDeviceName(): String
 
 }

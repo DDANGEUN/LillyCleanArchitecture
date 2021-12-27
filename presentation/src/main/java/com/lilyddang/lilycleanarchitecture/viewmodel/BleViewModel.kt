@@ -18,13 +18,14 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
-class ScanViewModel(
+class BleViewModel(
     private val scanBleDevicesUseCase: ScanBleDevicesUseCase
 ) : BaseViewModel() {
 
-    val statusText = ObservableField("Hi! Let's scan BLE Device.")
+    val statusText = ObservableField("Press the Scan Tap to Start Ble Scan.")
     private var mScanSubscription: Disposable? = null
     val isScanning = ObservableBoolean(false)
+    var isConnected = ObservableBoolean(false)
 
     // scan results
     var scanResults = HashMap<String, ScanResult>()
@@ -68,7 +69,7 @@ class ScanViewModel(
 
     }
 
-    private fun stopScan() {
+    fun stopScan() {
         mScanSubscription?.dispose()
         isScanning.set(false)
         if (scanResults.isEmpty()) {

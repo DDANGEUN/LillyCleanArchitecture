@@ -16,8 +16,8 @@ abstract class BaseActivity<T : ViewDataBinding, R : ViewModel> : AppCompatActiv
         binding.lifecycleOwner = this
         initVariable()
         initView()
-        initObserver()
         initListener()
+        initObserver()
     }
 
     override fun onBackPressed() {

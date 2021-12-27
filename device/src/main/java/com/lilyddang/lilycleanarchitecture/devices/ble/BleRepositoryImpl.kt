@@ -1,6 +1,5 @@
 package com.lilyddang.lilycleanarchitecture.devices.ble
 
-import android.content.Context
 import com.lilyddang.lilycleanarchitecture.devices.CHARACTERISTIC_COMMAND_STRING
 import com.lilyddang.lilycleanarchitecture.devices.CHARACTERISTIC_RESPONSE_STRING
 import com.lilyddang.lilycleanarchitecture.domain.ble.BleRepository
@@ -27,7 +26,7 @@ class BleRepositoryImpl(private val rxBleClient: RxBleClient) : BleRepository {
 
     override var deviceConnectionEvent = MutableSharedFlow<DeviceEvent<Boolean>>()
     override var isDeviceConnected = MutableStateFlow(false)
-    override var deviceName = MutableStateFlow("")
+    private var connectedBleDevice: RxBleDevice? = null
 
     /**
      * Scan
@@ -75,9 +74,9 @@ class BleRepositoryImpl(private val rxBleClient: RxBleClient) : BleRepository {
         when (connectionState) {
             RxBleConnection.RxBleConnectionState.CONNECTED -> {
                 CoroutineScope(Dispatchers.IO).launch {
-                    deviceConnectionEvent.emit(DeviceEvent.isDeviceConnected(device.name ?: "", true))
+                    deviceConnectionEvent.emit(DeviceEvent.deviceConnectionEvent(device.name ?: "", true))
                     isDeviceConnected.value = true
-                    deviceName.value = device.name ?: ""
+                    connectedBleDevice = device
                 }
             }
             RxBleConnection.RxBleConnectionState.CONNECTING -> {
@@ -85,9 +84,9 @@ class BleRepositoryImpl(private val rxBleClient: RxBleClient) : BleRepository {
             RxBleConnection.RxBleConnectionState.DISCONNECTED -> {
                 conStateDisposable?.dispose()
                 CoroutineScope(Dispatchers.IO).launch {
-                    deviceConnectionEvent.emit(DeviceEvent.isDeviceConnected(device.name ?: "", false))
+                    deviceConnectionEvent.emit(DeviceEvent.deviceConnectionEvent(device.name ?: "", false))
                     isDeviceConnected.value = false
-                    deviceName.value = ""
+                    connectedBleDevice = null
                 }
             }
             RxBleConnection.RxBleConnectionState.DISCONNECTING -> {
@@ -122,4 +121,6 @@ class BleRepositoryImpl(private val rxBleClient: RxBleClient) : BleRepository {
     override fun disconnectBleDevice(){
         mConnectSubscription?.dispose()
     }
+
+    override fun getDeviceName(): String = connectedBleDevice?.name?: ""
 }

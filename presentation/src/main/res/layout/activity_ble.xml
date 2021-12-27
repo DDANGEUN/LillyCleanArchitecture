@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.lilyddang.lilycleanarchitecture.viewmodel.BleViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        tools:context=".ui.main.MainActivity">
+
+        <TextView
+            android:paddingTop="@dimen/_10dp"
+            android:paddingBottom="@dimen/_10dp"
+            android:id="@+id/tv_ble_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.statusText}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toBottomOf="@id/tv_ble_status"
+            android:id="@+id/layout_ble_connected_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:visibility="@{viewModel.isConnected?View.VISIBLE:View.GONE}">
+
+            <TextView
+                android:id="@+id/tv_ble_connected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:text="Connected Device"
+                android:textColor="@color/lilly_pink_typo"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/rv_ble_connected_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_ble_connected_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ble_connected"
+                app:layout_constraintHeight_default="wrap"
+                app:layout_constraintHeight_max="@dimen/_250dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            app:layout_constraintTop_toBottomOf="@id/layout_ble_connected_list"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/layout_ble_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10dp"
+            android:background="@color/transparent"
+            app:elevation="0dp">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout_ble"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/transparent"
+                android:foregroundGravity="center"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/lilly_blue_1"
+                app:tabIndicatorHeight="0dp"
+                app:tabInlineLabel="true"
+                app:tabMode="fixed"
+                app:tabPaddingBottom="@dimen/_m3dp"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingStart="0dp" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            app:layout_constraintTop_toBottomOf="@id/layout_ble_tab"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/layout_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_m3dp"
+            android:background="@color/lilly_blue_1">
+
+            <FrameLayout
+                android:layout_marginTop="@dimen/_3dp"
+                android:id="@+id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
