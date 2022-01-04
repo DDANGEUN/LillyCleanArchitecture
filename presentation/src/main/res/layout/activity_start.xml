@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10dp"
-            android:text="Lily"
+            android:text="Lilly"
             android:textSize="@dimen/_27dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_start_info"

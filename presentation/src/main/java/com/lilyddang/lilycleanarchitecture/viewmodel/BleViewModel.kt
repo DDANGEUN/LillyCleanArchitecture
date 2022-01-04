@@ -1,44 +1,64 @@
 package com.lilyddang.lilycleanarchitecture.viewmodel
 
 
+import android.os.ParcelUuid
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
 import com.lilyddang.lilycleanarchitecture.base.BaseViewModel
-import com.lilyddang.lilycleanarchitecture.domain.usecase.ble.ScanBleDevicesUseCase
+import com.lilyddang.lilycleanarchitecture.devices.SERVICE_STRING
+import com.lilyddang.lilycleanarchitecture.domain.usecase.ble.*
+import com.lilyddang.lilycleanarchitecture.domain.utils.DeviceEvent
 import com.lilyddang.lilycleanarchitecture.utils.MutableEventFlow
 import com.lilyddang.lilycleanarchitecture.utils.asEventFlow
+import com.polidea.rxandroidble2.RxBleDevice
 import com.polidea.rxandroidble2.exceptions.BleScanException
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.lang.reflect.Constructor
+import java.nio.charset.Charset
 import java.util.*
 import kotlin.concurrent.schedule
 
 class BleViewModel(
-    private val scanBleDevicesUseCase: ScanBleDevicesUseCase
+    private val scanBleDevicesUseCase: ScanBleDevicesUseCase,
+    private val connectBleDeviceUseCase: ConnectBleDeviceUseCase,
+    private val disconnectBleDeviceUseCase: DisconnectBleDeviceUseCase,
+    private val notifyUseCase: NotifyUseCase,
+    private val writeByteDataUseCase: WriteByteDataUseCase,
+    deviceConnectionEventUseCase: DeviceConnectionEventUseCase,
+    liveDeviceConnectStateUseCase: LiveDeviceConnectStateUseCase
 ) : BaseViewModel() {
 
     val statusText = ObservableField("Press the Scan Tap to Start Ble Scan.")
     private var mScanSubscription: Disposable? = null
+    private var mNotificationSubscription: Disposable? = null
     val isScanning = ObservableBoolean(false)
-    var isConnected = ObservableBoolean(false)
 
-    // scan results
+    var isConnected = liveDeviceConnectStateUseCase.execute().asStateFlow()
+    val deviceConnectionEvent: SharedFlow<DeviceEvent<Boolean>> =
+        deviceConnectionEventUseCase.execute().asSharedFlow()
+
     var scanResults = HashMap<String, ScanResult>()
-    var scanResultSize = ObservableInt(0)
 
-    private val _eventFlow = MutableEventFlow<Event>()
-    val eventFlow = _eventFlow.asEventFlow()
+    private val _eventFlow = MutableSharedFlow<Event>()
+    val eventFlow = _eventFlow.asSharedFlow()
+
+
+    val notify = ObservableBoolean(false)
 
 
     fun startScan() {
         //scan filter
+        statusText.set("Scanning...")
         val scanFilter: ScanFilter = ScanFilter.Builder()
-            //.setServiceUuid(ParcelUuid(UUID.fromString(SERVICE_STRING)))
+            .setServiceUuid(ParcelUuid(UUID.fromString(SERVICE_STRING)))
             //.setDeviceName("")
             .build()
         // scan settings
@@ -49,10 +69,12 @@ class BleViewModel(
 
 
         scanResults = HashMap<String, ScanResult>() //list 초기화
-
+        isScanning.set(true)
 
         mScanSubscription =
             scanBleDevicesUseCase.execute(settings, scanFilter)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ scanResult ->
                     addScanResult(scanResult)
                 }, { throwable ->
@@ -63,18 +85,18 @@ class BleViewModel(
                     }
                 })
 
-        isScanning.set(true)
 
         Timer("Scan", false).schedule(5000L) { stopScan() }
 
     }
 
     fun stopScan() {
+       //event(Event.ListUpdate(scanResults))
+        statusText.set("Finished Scanning.")
         mScanSubscription?.dispose()
         isScanning.set(false)
         if (scanResults.isEmpty()) {
             event(Event.ListUpdate(scanResults))
-            scanResultSize.set(0)
         }
     }
 
@@ -84,15 +106,82 @@ class BleViewModel(
     private fun addScanResult(result: ScanResult) {
         val device = result.bleDevice
         val deviceAddress = device.macAddress
-        if (scanResults.containsKey(deviceAddress)) return
         scanResults[deviceAddress] = result
-        scanResultSize.set(scanResults.size)
         event(Event.ListUpdate(scanResults))
+    }
+
+    /**
+     * Connect & Disconnect BleDevice.
+     */
+    fun connectDevice(device: RxBleDevice) = connectBleDeviceUseCase.execute(device)
+    fun disconnectDevice() = disconnectBleDeviceUseCase.execute()
+
+    /**
+     * Notification
+     */
+    fun notifyToggle(){
+        if(!notify.get()){
+            notify.set(true)
+            mNotificationSubscription = notifyUseCase.execute()
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({ bytes->
+                    val hexString: String = bytes.joinToString(separator = " ") {
+                        String.format("%02X", it)
+                    }
+                    event(Event.ReadLogUpdate(hexString))
+                },{
+                    event(Event.ShowNotification("${it.message}", "error"))
+                    mNotificationSubscription?.dispose()
+                    notify.set(false)
+                })
+        }else{
+            notify.set(false)
+            mNotificationSubscription?.dispose()
+        }
+    }
+    fun writeData(data:String, type:String){
+        var sendByteData: ByteArray? = null
+        when(type){
+            "string" -> {
+                sendByteData = data.toByteArray(Charset.defaultCharset())
+            }
+            "byte" -> {
+                sendByteData = hexStringToByteArray(data)
+            }
+        }
+        if (sendByteData != null) {
+
+            writeByteDataUseCase.execute(sendByteData)
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({ bytes->
+                    val hexString: String = bytes.joinToString(separator = " ") {
+                        String.format("%02X", it)
+                    }
+                    event(Event.ShowNotification("`$hexString` is written.","success"))
+
+                },{
+                    event(Event.ShowNotification("${it.message}", "error"))
+                })?.let { addDisposable(it) }
+        }
+    }
+    private fun hexStringToByteArray(s: String): ByteArray {
+        val len = s.length
+        val data = ByteArray(len / 2)
+        var i = 0
+        while (i < len) {
+            data[i / 2] = ((Character.digit(s[i], 16) shl 4)
+                    + Character.digit(s[i + 1], 16)).toByte()
+            i += 2
+        }
+        return data
     }
 
     override fun onCleared() {
         super.onCleared()
         mScanSubscription?.dispose()
+        mNotificationSubscription?.dispose()
     }
 
     private fun event(event: Event) {
@@ -103,7 +192,8 @@ class BleViewModel(
 
     sealed class Event {
         data class BleScanException(val reason: Int) : Event()
-        data class ListUpdate(val reults: HashMap<String, ScanResult>) : Event()
+        data class ListUpdate(val results: HashMap<String, ScanResult>) : Event()
+        data class ReadLogUpdate(val hexString: String) : Event()
         data class ShowNotification(val message: String, val type: String) : Event()
     }
 

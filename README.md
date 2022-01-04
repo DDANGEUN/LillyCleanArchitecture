@@ -1,5 +1,6 @@
 # LillyCleanArchitecture
 Android Clean Architecture Sample.
+This project is being updated by adding funcitions one by one.
 
 ## Info
 

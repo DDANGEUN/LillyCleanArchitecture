@@ -17,11 +17,11 @@ class Util {
          */
         fun showNotification(msg: String, form: String) {
             when(form){
-                "error"->{ Toasty.error(MyApplication.applicationContext(), msg, Toast.LENGTH_LONG).show()}
-                "success"->{ Toasty.success(MyApplication.applicationContext(), msg, Toast.LENGTH_LONG).show()}
-                "info"->{ Toasty.info(MyApplication.applicationContext(), msg, Toast.LENGTH_LONG).show()}
-                "warning"->{ Toasty.warning(MyApplication.applicationContext(), msg, Toast.LENGTH_LONG).show()}
-                "normal"->{ Toasty.normal(MyApplication.applicationContext(), msg, Toast.LENGTH_LONG).show()}
+                "error"->{ Toasty.error(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
+                "success"->{ Toasty.success(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
+                "info"->{ Toasty.info(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
+                "warning"->{ Toasty.warning(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
+                "normal"->{ Toasty.normal(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
             }
 
         }

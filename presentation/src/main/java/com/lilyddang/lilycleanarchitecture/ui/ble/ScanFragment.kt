@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lilyddang.lilycleanarchitecture.R
 import com.lilyddang.lilycleanarchitecture.base.BaseFragment
 import com.lilyddang.lilycleanarchitecture.databinding.FragmentScanBinding
-import com.lilyddang.lilycleanarchitecture.utils.Util
 import com.lilyddang.lilycleanarchitecture.utils.Util.Companion.repeatOnStarted
 import com.lilyddang.lilycleanarchitecture.viewmodel.BleViewModel
 import com.polidea.rxandroidble2.scan.ScanResult
@@ -36,20 +35,22 @@ class ScanFragment : BaseFragment<FragmentScanBinding, BleViewModel>() {
     override fun initListener() {
         scanListAdapter.setItemClickListener(object : ScanListAdapter.ItemClickListener {
             override fun onClick(view: View, scanResult: ScanResult) {
-                // TODO
+                viewModel.connectDevice(scanResult.bleDevice)
             }
         })
     }
 
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.eventFlow.collect{ event -> handleEvent(event) }
+            viewModel.eventFlow.collect{ event ->
+                handleEvent(event)
+            }
         }
     }
 
     private fun handleEvent(event: BleViewModel.Event) = when (event) {
         is BleViewModel.Event.ListUpdate->{
-            scanListAdapter.setItem(event.reults)
+            scanListAdapter.setItem(event.results)
         }
         else->{}
     }

@@ -35,7 +35,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { MainViewModel() }
     viewModel { RoomViewModel(get(),get(),get(),get()) }
-    viewModel { BleViewModel(get()) }
+    viewModel { BleViewModel(get(),get(),get(),get(),get(),get(),get()) }
     viewModel { StartViewModel(get(),get()) }
 }
 
@@ -72,10 +72,12 @@ val useCaseModule: Module = module {
     // Ble
     single<ScanBleDevicesUseCase>{ ScanBleDevicesUseCase(get()) }
     single<ConnectBleDeviceUseCase>{ ConnectBleDeviceUseCase(get()) }
-    single<DeviceEventUseCase>{ DeviceEventUseCase(get()) }
+    single<DeviceConnectionEventUseCase>{ DeviceConnectionEventUseCase(get()) }
     single<LiveDeviceConnectStateUseCase>{ LiveDeviceConnectStateUseCase(get()) }
-    single<GetDeviceNameUseCase>{ GetDeviceNameUseCase(get())}
     single<DisconnectBleDeviceUseCase>{ DisconnectBleDeviceUseCase(get())}
+    single<NotifyUseCase>{ NotifyUseCase(get()) }
+    single<WriteByteDataUseCase>{ WriteByteDataUseCase(get()) }
+
 }
 val deviceModule: Module = module {
     single<RxBleClient>{ RxBleClient.create(get()) }

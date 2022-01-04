@@ -1,7 +1,6 @@
 package com.lilyddang.lilycleanarchitecture.ui.ble
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
@@ -14,8 +13,6 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.lilyddang.lilycleanarchitecture.R
 import com.lilyddang.lilycleanarchitecture.base.BaseActivity
@@ -24,7 +21,6 @@ import com.lilyddang.lilycleanarchitecture.utils.Util
 import com.lilyddang.lilycleanarchitecture.utils.Util.Companion.repeatOnStarted
 import com.lilyddang.lilycleanarchitecture.viewmodel.BleViewModel
 import com.polidea.rxandroidble2.exceptions.BleScanException
-import com.polidea.rxandroidble2.scan.ScanResult
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
@@ -34,36 +30,57 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
     override val layoutResID: Int = R.layout.activity_ble
     override val viewModel by viewModel<BleViewModel>()
     private var requestEnableBluetooth = false
-    private var askGrant = false
 
-    private val fa: ScanFragment by inject()
-    private val fb: ReadFragment by inject()
+    private val scanFragment: ScanFragment by inject()
+    private val readFragment: ReadFragment by inject()
 
     companion object {
-        const val REQUEST_ALL_PERMISSION = 1
-        val PERMISSIONS = arrayOf(
+        const val REQUEST_LOCATION_PERMISSION = 1
+        val LOCATION_PERMISSION = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION
         )
     }
 
     override fun initVariable() {
         binding.viewModel = viewModel
-        if (!hasPermissions(this, PERMISSIONS)) {
-            requestPermissions(PERMISSIONS, REQUEST_ALL_PERMISSION)
+        if (!hasPermissions(this, LOCATION_PERMISSION)) {
+            requestPermissions(LOCATION_PERMISSION, REQUEST_LOCATION_PERMISSION)
         }
     }
     override fun initView(){
         tabInit()
     }
     override fun initListener() {
-
+        binding.apply{
+            btnBleWrite.setOnClickListener {
+                val writeDialog = WriteDialog(this@BleActivity, object : WriteDialog.WriteDialogListener {
+                    override fun onClickSend(data: String, type: String) {
+                        viewModel?.writeData(data, type)
+                    }
+                })
+                writeDialog.show()
+            }
+        }
     }
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.eventFlow.collect{ event -> handleEvent(event) }
+            viewModel.eventFlow.collect{ event ->
+                handleEvent(event)
+            }
         }
-
-        // end init
+        repeatOnStarted {
+            viewModel.deviceConnectionEvent.collect { deviceEvent ->
+                deviceEvent.run {
+                    if (data) {
+                        binding.tabLayoutBle.selectTab(binding.tabLayoutBle.getTabAt(1))
+                        binding.tvConnectedDeviceName.text = deviceName
+                        Util.showNotification("$deviceName Connected", "success")
+                    } else {
+                        Util.showNotification("$deviceName Disconnected", "error")
+                    }
+                }
+            }
+        }
     }
     private fun handleEvent(event: BleViewModel.Event) = when (event) {
         is BleViewModel.Event.BleScanException ->{
@@ -76,10 +93,10 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
     }
 
     private fun tabInit() {
-
-        supportFragmentManager.beginTransaction().add(R.id.tabcontent, fa).commit()
-        supportFragmentManager.beginTransaction().add(R.id.tabcontent, fb).commit()
-
+        supportFragmentManager.beginTransaction().add(R.id.tabcontent, scanFragment).commit()
+        supportFragmentManager.beginTransaction().add(R.id.tabcontent, readFragment).commit()
+        supportFragmentManager.beginTransaction().show(scanFragment).commit()
+        supportFragmentManager.beginTransaction().hide(readFragment).commit()
         val view1: View = layoutInflater.inflate(R.layout.custom_tab, null)
         val tabText1 = view1.findViewById(R.id.custom_tab_text) as TextView
         tabText1.text = "Scan"
@@ -109,15 +126,17 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
                     )
                     findViewById<TextView>(R.id.custom_tab_text).setTextColor(ContextCompat.getColor(applicationContext,R.color.lilly_blue_2))
                 }
+
                 when (position) {
                     0 -> {
-                        supportFragmentManager.beginTransaction().show(fa).commit()
-                        supportFragmentManager.beginTransaction().hide(fb).commit()
+                        supportFragmentManager.beginTransaction().show(scanFragment).commit()
+                        supportFragmentManager.beginTransaction().hide(readFragment).commit()
+                        if(!viewModel.isScanning.get()) viewModel.startScan()
                     }
                     1 -> {
                         viewModel.stopScan()
-                        supportFragmentManager.beginTransaction().hide(fa).commit()
-                        supportFragmentManager.beginTransaction().show(fb).commit()
+                        supportFragmentManager.beginTransaction().hide(scanFragment).commit()
+                        supportFragmentManager.beginTransaction().show(readFragment).commit()
                     }
                 }
 
@@ -135,7 +154,7 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
 
             override fun onTabReselected(tab: TabLayout.Tab) {
                 if (tab.position == 0) {
-                    viewModel.startScan()
+                    if(!viewModel.isScanning.get()) viewModel.startScan()
                 }
             }
         })
@@ -148,6 +167,9 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
             requestEnableBluetooth = true
             requestEnableBLE()
         }
+        BleScanException.LOCATION_PERMISSION_MISSING->{
+            requestPermissions(LOCATION_PERMISSION, REQUEST_LOCATION_PERMISSION)
+        }
         else -> {
             Util.showNotification(bleScanExceptionReasonDescription(reason), "error")
         }
@@ -158,7 +180,6 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
             BleScanException.BLUETOOTH_CANNOT_START -> "Bluetooth cannot start"
             BleScanException.BLUETOOTH_DISABLED -> "Bluetooth disabled"
             BleScanException.BLUETOOTH_NOT_AVAILABLE -> "Bluetooth not available"
-            BleScanException.LOCATION_PERMISSION_MISSING -> "Location Permission missing"
             BleScanException.LOCATION_SERVICES_DISABLED -> "Location Services disabled"
             BleScanException.SCAN_FAILED_ALREADY_STARTED -> "Scan failed because it has already started"
             BleScanException.SCAN_FAILED_APPLICATION_REGISTRATION_FAILED -> "Scan failed because application registration failed"
@@ -208,14 +229,14 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            REQUEST_ALL_PERMISSION -> {
+            REQUEST_LOCATION_PERMISSION -> {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Permissions granted!", Toast.LENGTH_SHORT).show()
                 } else {
-                    requestPermissions(permissions, REQUEST_ALL_PERMISSION)
-                    Toast.makeText(this, "Permissions must be granted", Toast.LENGTH_SHORT).show()
-                    askGrant = false
+                    //requestPermissions(permissions, LOCATION_PERMISSION)
+                    Toast.makeText(this, "Permissions must be granted!", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
             }
         }

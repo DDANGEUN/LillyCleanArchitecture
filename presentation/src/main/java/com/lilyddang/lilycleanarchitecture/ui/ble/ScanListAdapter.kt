@@ -2,9 +2,11 @@ package com.lilyddang.lilycleanarchitecture.ui.ble
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -63,10 +65,12 @@ class ScanListAdapter
             macAddress.text = scanResult.bleDevice.macAddress
             val rssi = itemView.findViewById<TextView>(R.id.tv_scanlist_rssi)
             rssi.text = "${scanResult.rssi}dBm"
-            val btnExpand = itemView.findViewById<ImageButton>(R.id.btn_scanlist_expand)
-            btnExpand.setOnClickListener {
-                // TODO
+
+            val btnConnect = itemView.findViewById<Button>(R.id.btn_scanlist_connect)
+            btnConnect.setOnClickListener {
+                itemClickListner.onClick(it,scanResult)
             }
+
         }
     }
     interface ItemClickListener {

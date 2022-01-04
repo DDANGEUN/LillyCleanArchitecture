@@ -1,6 +1,5 @@
 package com.lilyddang.lilycleanarchitecture.domain.ble
 
-import android.content.Context
 import com.lilyddang.lilycleanarchitecture.domain.utils.DeviceEvent
 import com.polidea.rxandroidble2.RxBleDevice
 import com.polidea.rxandroidble2.scan.ScanFilter

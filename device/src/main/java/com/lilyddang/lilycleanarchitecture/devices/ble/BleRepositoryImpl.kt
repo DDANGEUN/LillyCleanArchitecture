@@ -1,5 +1,6 @@
 package com.lilyddang.lilycleanarchitecture.devices.ble
 
+import android.util.Log
 import com.lilyddang.lilycleanarchitecture.devices.CHARACTERISTIC_COMMAND_STRING
 import com.lilyddang.lilycleanarchitecture.devices.CHARACTERISTIC_RESPONSE_STRING
 import com.lilyddang.lilycleanarchitecture.domain.ble.BleRepository
