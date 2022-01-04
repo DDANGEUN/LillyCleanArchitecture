@@ -18,7 +18,7 @@ This project is being updated by adding funcitions one by one.
 
 ## Preview
 
-<img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/blob/main/illyClean_room.mp4" width="40%">
+<img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/blob/main/LillyCleanArchitecture.gif" width="40%">
 <img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/blob/main/lillyClean_ble.mp4" width="40%">
 　  
 
