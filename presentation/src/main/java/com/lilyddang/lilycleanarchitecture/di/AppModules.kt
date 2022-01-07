@@ -76,8 +76,8 @@ val useCaseModule: Module = module {
     single<LiveDeviceConnectStateUseCase>{ LiveDeviceConnectStateUseCase(get()) }
     single<DisconnectBleDeviceUseCase>{ DisconnectBleDeviceUseCase(get())}
     single<NotifyUseCase>{ NotifyUseCase(get()) }
+    single<ReadUseCase>{ ReadUseCase(get()) }
     single<WriteByteDataUseCase>{ WriteByteDataUseCase(get()) }
-
 }
 val deviceModule: Module = module {
     single<RxBleClient>{ RxBleClient.create(get()) }

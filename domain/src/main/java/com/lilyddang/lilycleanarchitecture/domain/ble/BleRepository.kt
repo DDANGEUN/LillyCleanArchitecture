@@ -19,6 +19,7 @@ interface BleRepository {
     fun connectBleDevice(device: RxBleDevice)
     fun disconnectBleDevice()
     fun bleNotification(): Observable<ByteArray>?
+    fun bleRead(): Single<ByteArray>?
     fun writeData(sendByteData: ByteArray): Single<ByteArray>?
     fun getDeviceName(): String
 

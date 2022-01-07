@@ -106,6 +106,11 @@ class BleRepositoryImpl(private val rxBleClient: RxBleClient) : BleRepository {
         }
         ?.flatMap { notificationObservable -> notificationObservable }
 
+    /**
+     * Read
+     */
+    override fun bleRead() =
+        rxBleConnection?.readCharacteristic(UUID.fromString(CHARACTERISTIC_RESPONSE_STRING))
 
     /**
      * Write Data
