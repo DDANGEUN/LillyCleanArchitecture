@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.lilyddang.lilycleanarchitecture.viewmodel.RoomViewModel" />
+            type="lilly.cleanarchitecture.viewmodel.RoomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"

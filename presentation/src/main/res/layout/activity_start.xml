@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.lilyddang.lilycleanarchitecture.viewmodel.StartViewModel" />
+            type="lilly.cleanarchitecture.viewmodel.StartViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

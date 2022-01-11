@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.lilyddang.lilycleanarchitecture.viewmodel.MainViewModel" />
+            type="lilly.cleanarchitecture.viewmodel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
