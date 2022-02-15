@@ -17,12 +17,16 @@ This project is being updated by adding funcitions one by one.
 
 
 ## Preview
-- Room
+#### Room
 <img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/blob/main/lillyClean_room.gif" width="40%">
 
-- RxBle
+#### RxBle
 <img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/blob/main/lillyClean_ble.gif" width="40%">
-　  - If you want to see your ble device like this code preview, ***modify UUID*** in **devices/Constants.kt**  
+
+
+
+  - If you want to see your ble device like this code preview, ***modify UUID*** in **devices/Constants.kt**
+
 ```Kotlin
 const val SERVICE_STRING = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
 const val CHARACTERISTIC_COMMAND_STRING = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
