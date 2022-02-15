@@ -1,5 +1,6 @@
 package lilly.cleanarchitecture.ui.ble
 
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import lilly.cleanarchitecture.base.BaseFragment
@@ -32,6 +33,7 @@ class ReadFragment : BaseFragment<FragmentReadBinding, BleViewModel>() {
         }
     }
     override fun initListener() {
+
     }
     override fun initObserver() {
         repeatOnStarted {

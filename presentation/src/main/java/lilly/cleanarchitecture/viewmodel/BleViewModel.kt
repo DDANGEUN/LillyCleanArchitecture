@@ -2,6 +2,7 @@ package lilly.cleanarchitecture.viewmodel
 
 
 import android.os.ParcelUuid
+import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.viewModelScope
@@ -29,6 +30,7 @@ class BleViewModel(
     private val disconnectBleDeviceUseCase: DisconnectBleDeviceUseCase,
     private val notifyUseCase: NotifyUseCase,
     private val writeByteDataUseCase: WriteByteDataUseCase,
+    private val getDeviceNameUseCase: GetDeviceNameUseCase,
     deviceConnectionEventUseCase: DeviceConnectionEventUseCase,
     liveDeviceConnectStateUseCase: LiveDeviceConnectStateUseCase
 ) : BaseViewModel() {
@@ -126,6 +128,7 @@ class BleViewModel(
                     val hexString: String = bytes.joinToString(separator = " ") {
                         String.format("%02X", it)
                     }
+                    Log.d("read",hexString)
                     event(Event.ReadLogUpdate(hexString))
                 },{
                     event(Event.ShowNotification("${it.message}", "error"))
@@ -163,6 +166,8 @@ class BleViewModel(
                 })?.let { addDisposable(it) }
         }
     }
+    fun getDeviceName() = getDeviceNameUseCase.execute()
+
     private fun hexStringToByteArray(s: String): ByteArray {
         val len = s.length
         val data = ByteArray(len / 2)

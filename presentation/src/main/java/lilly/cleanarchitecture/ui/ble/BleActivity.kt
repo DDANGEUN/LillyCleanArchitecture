@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -31,14 +32,19 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
     override val viewModel by viewModel<BleViewModel>()
     private var requestEnableBluetooth = false
 
-    private val scanFragment: ScanFragment by inject()
-    private val readFragment: ReadFragment by inject()
 
     companion object {
         const val REQUEST_LOCATION_PERMISSION = 1
         val LOCATION_PERMISSION = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(viewModel.isConnected.value){
+            binding.tvConnectedDeviceName.text = viewModel.getDeviceName()
+        }
     }
 
     override fun initVariable() {
@@ -93,6 +99,8 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
     }
 
     private fun tabInit() {
+        val scanFragment = ScanFragment()
+        val readFragment = ReadFragment()
         supportFragmentManager.beginTransaction().add(R.id.tabcontent, scanFragment).commit()
         supportFragmentManager.beginTransaction().add(R.id.tabcontent, readFragment).commit()
         supportFragmentManager.beginTransaction().show(scanFragment).commit()
