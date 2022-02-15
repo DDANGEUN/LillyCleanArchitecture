@@ -18,10 +18,10 @@ This project is being updated by adding funcitions one by one.
 
 ## Preview
 #### Room
-<img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/blob/main/lillyClean_room.gif" width="40%">
+<img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/blob/main/lillyClean_room.gif" width="30%">
 
 #### RxBle
-<img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/blob/main/lillyClean_ble.gif" width="40%">
+<img src = "https://github.com/DDANGEUN/LillyCleanArchitecture/blob/main/lillyClean_ble.gif" width="30%">
 
 
 
