@@ -1,14 +1,18 @@
 package lilly.cleanarchitecture.ui.main
 
 import android.content.Intent
+import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import lilly.cleanarchitecture.R
 import lilly.cleanarchitecture.base.BaseActivity
 import lilly.cleanarchitecture.databinding.ActivityStartBinding
 import lilly.cleanarchitecture.viewmodel.StartViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+
+
+@AndroidEntryPoint
 class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(){
 
-    override val viewModel by viewModel<StartViewModel>()
+    override val viewModel by viewModels<StartViewModel>()
     override val layoutResID: Int = R.layout.activity_start
 
     override fun initVariable() {

@@ -1,17 +1,19 @@
 package lilly.cleanarchitecture.ui.main
 
 import android.content.Intent
+import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import lilly.cleanarchitecture.R
 import lilly.cleanarchitecture.base.BaseActivity
 import lilly.cleanarchitecture.databinding.ActivityMainBinding
 import lilly.cleanarchitecture.ui.ble.BleActivity
 import lilly.cleanarchitecture.ui.room.RoomActivity
 import lilly.cleanarchitecture.viewmodel.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(){
 
-    override val viewModel by viewModel<MainViewModel>()
+    override val viewModel by viewModels<MainViewModel>()
     override val layoutResID: Int = R.layout.activity_main
 
     override fun initVariable() {

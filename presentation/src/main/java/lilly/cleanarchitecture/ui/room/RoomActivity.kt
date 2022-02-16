@@ -6,20 +6,21 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.core.widget.doOnTextChanged
+import dagger.hilt.android.AndroidEntryPoint
 import lilly.cleanarchitecture.base.BaseActivity
 import lilly.cleanarchitecture.utils.Util.Companion.repeatOnStarted
 import lilly.cleanarchitecture.viewmodel.RoomViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.coroutines.flow.collect
 import lilly.cleanarchitecture.R
 import lilly.cleanarchitecture.databinding.ActivityRoomBinding
 
-
+@AndroidEntryPoint
 class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
 
     override val layoutResID: Int = R.layout.activity_room
-    override val viewModel by viewModel<RoomViewModel>()
+    override val viewModel by viewModels<RoomViewModel>()
     private var textListAdpater: TextListAdapter? = null
 
     override fun initVariable() {
