@@ -67,7 +67,7 @@ class BleRepositoryImpl(private val rxBleClient: RxBleClient) : BleRepository {
     /**
      * Connection State Changed Listener
      */
-    private fun connectionStateListener(
+    private fun connectionStateListener (
         device: RxBleDevice,
         connectionState: RxBleConnection.RxBleConnectionState
     ) {

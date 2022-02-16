@@ -3,16 +3,16 @@ buildscript {
     ext{
         kotlin_version = "1.6.10"
         koin_version = "3.1.3"
-        navigation_version = '2.4.0-rc01'
+        navigation_version = '2.4.1'
         fragment_version = '1.4.0'
-        room_version = '2.4.0'
+        room_version = '2.4.1'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:7.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.insert-koin:koin-core:$koin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
