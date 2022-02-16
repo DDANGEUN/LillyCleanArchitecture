@@ -12,24 +12,25 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.tabs.TabLayout
 import com.polidea.rxandroidble2.exceptions.BleScanException
+import dagger.hilt.android.AndroidEntryPoint
 import lilly.cleanarchitecture.base.BaseActivity
 import lilly.cleanarchitecture.utils.Util.Companion.repeatOnStarted
 import lilly.cleanarchitecture.viewmodel.BleViewModel
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.coroutines.flow.collect
 import lilly.cleanarchitecture.R
 import lilly.cleanarchitecture.databinding.ActivityBleBinding
 import lilly.cleanarchitecture.utils.Util
 
+@AndroidEntryPoint
 class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
 
     override val layoutResID: Int = R.layout.activity_ble
-    override val viewModel by viewModel<BleViewModel>()
+    override val viewModel by viewModels<BleViewModel>()
     private var requestEnableBluetooth = false
 
 

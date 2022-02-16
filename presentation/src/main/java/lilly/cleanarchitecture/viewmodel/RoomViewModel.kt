@@ -4,6 +4,8 @@ package lilly.cleanarchitecture.viewmodel
 import android.annotation.SuppressLint
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.hilt.lifecycle.ViewModelInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import lilly.cleanarchitecture.data.utils.NO_DATA_FROM_LOCAL_DB
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -20,9 +22,11 @@ import lilly.cleanarchitecture.domain.usecase.room.InsertTextUseCase
 import lilly.cleanarchitecture.utils.Util
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class RoomViewModel(
+@HiltViewModel
+class RoomViewModel @Inject constructor(
     private val getAllLocalTextsUseCase: GetAllLocalTextsUseCase,
     private val insertTextUseCase: InsertTextUseCase,
     private val deleteTextUseCase: DeleteTextUseCase,

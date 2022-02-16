@@ -11,6 +11,7 @@ import com.polidea.rxandroidble2.exceptions.BleScanException
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -22,9 +23,11 @@ import lilly.cleanarchitecture.domain.usecase.ble.*
 import lilly.cleanarchitecture.domain.utils.DeviceEvent
 import java.nio.charset.Charset
 import java.util.*
+import javax.inject.Inject
 import kotlin.concurrent.schedule
 
-class BleViewModel(
+@HiltViewModel
+class BleViewModel @Inject constructor(
     private val scanBleDevicesUseCase: ScanBleDevicesUseCase,
     private val connectBleDeviceUseCase: ConnectBleDeviceUseCase,
     private val disconnectBleDeviceUseCase: DisconnectBleDeviceUseCase,

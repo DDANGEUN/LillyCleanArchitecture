@@ -1,21 +1,22 @@
 package lilly.cleanarchitecture.ui.ble
 
-import android.util.Log
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import lilly.cleanarchitecture.base.BaseFragment
 import lilly.cleanarchitecture.utils.Util.Companion.repeatOnStarted
 import lilly.cleanarchitecture.viewmodel.BleViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlinx.coroutines.flow.collect
 import lilly.cleanarchitecture.R
 import lilly.cleanarchitecture.databinding.FragmentReadBinding
 
+@AndroidEntryPoint
 class ReadFragment : BaseFragment<FragmentReadBinding, BleViewModel>() {
 
-    override val viewModel by sharedViewModel<BleViewModel>()
+    override val viewModel by activityViewModels<BleViewModel>()
     override val layoutResID: Int = R.layout.fragment_read
     private var readDataAdapter: ReadDataAdapter? = null
     private var readItem = ArrayList<Pair<String,String>>()

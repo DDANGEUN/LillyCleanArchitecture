@@ -1,8 +1,9 @@
 package lilly.cleanarchitecture.domain.usecase.ble
 
 import lilly.cleanarchitecture.domain.ble.BleRepository
+import javax.inject.Inject
 
 
-class NotifyUseCase(private val repository: BleRepository) {
+class NotifyUseCase @Inject constructor(private val repository: BleRepository) {
     fun execute() = repository.bleNotification()
 }
