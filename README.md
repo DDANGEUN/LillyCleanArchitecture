@@ -10,7 +10,7 @@ This project is being updated by adding funcitions one by one.
 - RxBle
 
  **Using**
-  - [Koin](https://github.com/InsertKoinIO/koin)
+  - [Hilt](https://dagger.dev/hilt/)
   - [RxJava2](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)
   - [RxAndroidBle](https://github.com/dariuszseweryn/RxAndroidBle)
   - Theme Ref : https://material.io/design/material-studies/shrine.html#components
