@@ -58,7 +58,7 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
         tabInit()
     }
     override fun initListener() {
-        binding.apply{
+        with(binding){
             btnBleWrite.setOnClickListener {
                 val writeDialog = WriteDialog(this@BleActivity, object : WriteDialog.WriteDialogListener {
                     override fun onClickSend(data: String, type: String) {
@@ -94,7 +94,7 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
             bleThrowable(event.reason)
         }
         is BleViewModel.Event.ShowNotification->{
-            Util.showNotification(event.message,event.type)
+            Util.showNotification(event.msg,event.type)
         }
         else->{}
     }

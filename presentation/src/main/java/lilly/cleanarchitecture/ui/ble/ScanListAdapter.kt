@@ -1,33 +1,24 @@
 package lilly.cleanarchitecture.ui.ble
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.polidea.rxandroidble2.scan.ScanResult
-import lilly.cleanarchitecture.R
+import lilly.cleanarchitecture.databinding.ItemScanlistBinding
 import java.util.*
 
 class ScanListAdapter
     : RecyclerView.Adapter<ScanListAdapter.ScanListViewHolder>(){
 
-    private lateinit var mContext: Context
     private var items = HashMap<String, ScanResult>()
     private lateinit var itemClickListner: ItemClickListener
-    lateinit var itemView: View
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScanListViewHolder {
-        mContext = parent.context
-        itemView = LayoutInflater.from(mContext).inflate(R.layout.item_scanlist, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScanListViewHolder =
+        ScanListViewHolder(ItemScanlistBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-        return ScanListViewHolder(itemView)
-
-    }
     override fun onBindViewHolder(holder: ScanListViewHolder, position: Int) {
         var i = 0
         for (key in items.keys) {
@@ -46,25 +37,14 @@ class ScanListAdapter
         notifyDataSetChanged()
     }
 
-    inner class ScanListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ScanListViewHolder(private val binding: ItemScanlistBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(scanResult: ScanResult) {
-            val name = scanResult.bleDevice?.name?: ""
-            val bleName = itemView.findViewById<TextView>(R.id.tv_scanlist_name)
-            if(name.isEmpty()){
-                bleName.text = "N/A"
-                bleName.setTextColor(mContext.getColor(R.color.lilly_gray_2))
-            }else{
-                bleName.text = name
-                bleName.setTextColor(mContext.getColor(R.color.lilly_blue_2))
+            with(binding){
+                scanResultItem = scanResult
+                executePendingBindings()
             }
-            val macAddress = itemView.findViewById<TextView>(R.id.tv_scanlist_mac)
-            macAddress.text = scanResult.bleDevice.macAddress
-            val rssi = itemView.findViewById<TextView>(R.id.tv_scanlist_rssi)
-            rssi.text = "${scanResult.rssi}dBm"
-
-            val btnConnect = itemView.findViewById<Button>(R.id.btn_scanlist_connect)
-            btnConnect.setOnClickListener {
+            binding.btnScanlistConnect.setOnClickListener {
                 itemClickListner.onClick(it,scanResult)
             }
 

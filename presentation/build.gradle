@@ -85,7 +85,7 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.4.0'
 
     // fragment & naviagation
-    implementation "androidx.fragment:fragment-ktx:1.4.0"
+    implementation "androidx.fragment:fragment-ktx:1.4.1"
     debugImplementation "androidx.fragment:fragment-testing:1.4.1"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"

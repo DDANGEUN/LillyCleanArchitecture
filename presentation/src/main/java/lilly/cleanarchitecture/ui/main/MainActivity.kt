@@ -27,7 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(){
     }
 
     override fun initListener() {
-        binding.apply{
+        with(binding){
             btnRoom.setOnClickListener {
                 val intent = Intent(this@MainActivity, RoomActivity::class.java)
                 startActivity(intent)

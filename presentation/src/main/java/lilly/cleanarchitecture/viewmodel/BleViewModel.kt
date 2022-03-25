@@ -199,7 +199,7 @@ class BleViewModel @Inject constructor(
         data class BleScanException(val reason: Int) : Event()
         data class ListUpdate(val results: HashMap<String, ScanResult>) : Event()
         data class ReadLogUpdate(val hexString: String) : Event()
-        data class ShowNotification(val message: String, val type: String) : Event()
+        data class ShowNotification(val msg: String, val type: String) : Event()
     }
 
 }

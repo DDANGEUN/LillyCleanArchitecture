@@ -26,7 +26,7 @@ class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(){
             startActivity(intent)
             overridePendingTransition(0, 0)
         }
-        binding.apply {
+        with(binding){
             ivStartLily.clipToOutline = true
         }
     }
@@ -35,7 +35,7 @@ class StartActivity : BaseActivity<ActivityStartBinding, StartViewModel>(){
     }
 
     override fun initListener() {
-        binding.apply {
+        with(binding){
             btnStart.setOnClickListener {
                 val intent = Intent(this@StartActivity, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

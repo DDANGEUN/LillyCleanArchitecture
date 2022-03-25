@@ -24,7 +24,7 @@ class ScanFragment : BaseFragment<FragmentScanBinding, BleViewModel>() {
         scanListAdapter = ScanListAdapter()
     }
     override fun initView() {
-        binding.apply {
+        with(binding){
             rvBleScanlist.apply {
                 setHasFixedSize(true)
                 val layoutManager1: RecyclerView.LayoutManager =

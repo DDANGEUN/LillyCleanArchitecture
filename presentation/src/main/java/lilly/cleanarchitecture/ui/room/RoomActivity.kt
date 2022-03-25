@@ -15,13 +15,14 @@ import lilly.cleanarchitecture.viewmodel.RoomViewModel
 import kotlinx.coroutines.flow.collect
 import lilly.cleanarchitecture.R
 import lilly.cleanarchitecture.databinding.ActivityRoomBinding
+import lilly.cleanarchitecture.utils.Util
 
 @AndroidEntryPoint
 class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
 
     override val layoutResID: Int = R.layout.activity_room
     override val viewModel by viewModels<RoomViewModel>()
-    private var textListAdpater: TextListAdapter? = null
+    private var textListAdapter: TextListAdapter? = null
 
     override fun initVariable() {
         binding.viewModel = viewModel
@@ -33,12 +34,12 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
             this,
             LinearLayoutManager.VERTICAL, false
         )
-        textListAdpater = TextListAdapter()
+        textListAdapter = TextListAdapter()
         binding.apply {
             rvTextList.apply {
                 setHasFixedSize(true)
                 this.layoutManager = layoutManager
-                adapter = textListAdpater
+                adapter = textListAdapter
             }
         }
         initSwipe()
@@ -46,7 +47,7 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
     }
 
     override fun initListener() {
-        binding.apply {
+        with(binding){
             etPuttext.doOnTextChanged { text, _, _, _ ->
                 viewModel?.getSearchTexts(text.toString())
             }
@@ -61,8 +62,19 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
     override fun initObserver() {
         repeatOnStarted {
             viewModel.textListObservable.collect {
-                textListAdpater?.setItem(it)
+                textListAdapter?.setItem(it)
             }
+        }
+        repeatOnStarted {
+            viewModel.eventFlow.collect { event ->
+                handleEvent(event)
+            }
+        }
+    }
+
+    private fun handleEvent(event: RoomViewModel.Event) = when (event) {
+        is RoomViewModel.Event.ShowNotification -> {
+            Util.showNotification(event.msg, event.type)
         }
     }
 
@@ -96,7 +108,7 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 if (direction == ItemTouchHelper.LEFT) {
-                    textListAdpater?.getItem()?.get(position)?.let { viewModel.deleteText(it) }
+                    textListAdapter?.getItem()?.get(position)?.let { viewModel.deleteText(it) }
                 } else {
                     // 오른쪽으로 밀었을때
                 }

@@ -13,19 +13,21 @@ import lilly.cleanarchitecture.data.database.AppDatabase
 import lilly.cleanarchitecture.data.utils.PreferenceManager
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
+
 @Module
-object DBModule {
-    @Singleton
+@InstallIn(SingletonComponent::class)
+object DataBaseModule {
+
     @Provides
+    @Singleton
     fun provideAppDatabase(
         @ApplicationContext context: Context
     ): AppDatabase = Room
         .databaseBuilder(context, AppDatabase::class.java, "text.db")
         .build()
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideTextDao(appDatabase: AppDatabase): TextDao = appDatabase.textDao()
 
     @Provides

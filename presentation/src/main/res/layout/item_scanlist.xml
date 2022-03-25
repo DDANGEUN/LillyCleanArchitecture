@@ -1,90 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_65dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="@dimen/_10dp"
-    android:background="@drawable/round_background_blue1_7"
-    android:elevation="@dimen/_5dp"
-    android:orientation="horizontal"
-    tools:ignore="MissingDefaultResource">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_marginTop="@dimen/_5dp"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_scanlist_mac"
-        app:layout_constraintEnd_toStartOf="@id/iv_scanlist_triangle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center_vertical"
-        android:id="@+id/tv_scanlist_name"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/_15dp"
-        android:fontFamily="@font/rubik"
-        android:autoSizeTextType="uniform"
-        android:maxLines="1"
-        android:autoSizeMaxTextSize="20sp"
-        android:autoSizeMinTextSize="14sp"
-        android:autoSizeStepGranularity="1sp"
-        android:text="name"
-        android:textColor="@color/lilly_blue_2" />
+    <data>
+        <variable
+            name="scanResultItem"
+            type="com.polidea.rxandroidble2.scan.ScanResult" />
+    </data>
 
-    <TextView
-        android:layout_marginBottom="@dimen/_5dp"
-        android:gravity="center"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintTop_toBottomOf="@id/tv_scanlist_name"
-        app:layout_constraintStart_toStartOf="@id/tv_scanlist_name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/tv_scanlist_mac"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:textSize="@dimen/_14dp"
-        android:fontFamily="@font/rubik"
-        android:text="6B:94:31:C1:B5:E7"
-        android:textColor="@color/lilly_gray_2" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_65dp"
+        android:layout_margin="@dimen/_10dp"
+        android:background="@drawable/round_background_blue1_7"
+        android:elevation="@dimen/_5dp"
+        android:orientation="horizontal"
+        tools:ignore="MissingDefaultResource">
 
-    <TextView
-        app:layout_constraintTop_toTopOf="@id/tv_scanlist_mac"
-        app:layout_constraintStart_toEndOf="@id/tv_scanlist_mac"
-        app:layout_constraintBottom_toBottomOf="@id/tv_scanlist_mac"
-        android:id="@+id/tv_scanlist_rssi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10dp"
-        android:textSize="@dimen/_14dp"
-        android:fontFamily="@font/rubik"
-        android:textStyle="italic"
-        android:text="-23dBm"
-        android:textColor="@color/lilly_gray_2" />
+        <TextView
+            android:layout_marginTop="@dimen/_5dp"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_scanlist_mac"
+            app:layout_constraintEnd_toStartOf="@id/iv_scanlist_triangle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_scanlist_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_15dp"
+            android:fontFamily="@font/rubik"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="14sp"
+            android:autoSizeStepGranularity="1sp"
+            android:text="@{scanResultItem.bleDevice.name ?? `N/A`}"
+            android:textColor="@{scanResultItem.bleDevice.name==null?@color/lilly_gray_2:@color/lilly_blue_2}" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_scanlist_connect"
-        android:layout_width="@dimen/_80dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/button_back_connect"
-        android:elevation="0dp"
-        android:stateListAnimator="@null"
-        android:text="Connect"
-        android:textColor="@color/lilly_pink_typo"
-        android:textSize="@dimen/_13dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:layout_marginBottom="@dimen/_5dp"
+            android:gravity="center"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintTop_toBottomOf="@id/tv_scanlist_name"
+            app:layout_constraintStart_toStartOf="@id/tv_scanlist_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/tv_scanlist_mac"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:textSize="@dimen/_14dp"
+            android:fontFamily="@font/rubik"
+            android:text="@{scanResultItem.bleDevice.macAddress}"
+            android:textColor="@color/lilly_gray_2" />
 
-    <ImageView
-        android:id="@+id/iv_scanlist_triangle"
-        android:rotation="0"
-        android:background="@drawable/triangle_pink_1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_scanlist_connect"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="@dimen/_50dp"
-        android:layout_height="0dp"/>
+        <TextView
+            app:layout_constraintTop_toTopOf="@id/tv_scanlist_mac"
+            app:layout_constraintStart_toEndOf="@id/tv_scanlist_mac"
+            app:layout_constraintBottom_toBottomOf="@id/tv_scanlist_mac"
+            android:id="@+id/tv_scanlist_rssi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10dp"
+            android:textSize="@dimen/_14dp"
+            android:fontFamily="@font/rubik"
+            android:textStyle="italic"
+            android:text="@{scanResultItem.rssi + `dBm`}"
+            android:textColor="@color/lilly_gray_2" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_scanlist_connect"
+            android:layout_width="@dimen/_80dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/button_back_connect"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="Connect"
+            android:textColor="@color/lilly_pink_typo"
+            android:textSize="@dimen/_13dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_scanlist_triangle"
+            android:rotation="0"
+            android:background="@drawable/triangle_pink_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_scanlist_connect"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="0dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
