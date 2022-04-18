@@ -253,8 +253,8 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            REQUEST_LOCATION_PERMISSION -> {
+        //when (requestCode) {
+            //REQUEST_LOCATION_PERMISSION -> {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Permissions granted!", Toast.LENGTH_SHORT).show()
@@ -263,8 +263,8 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
                     Toast.makeText(this, "Permissions must be granted!", Toast.LENGTH_SHORT).show()
                     finish()
                 }
-            }
-        }
+           // }
+        //}
     }
 
 }
