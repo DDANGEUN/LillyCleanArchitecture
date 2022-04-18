@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -35,10 +36,19 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
 
 
     companion object {
-        const val REQUEST_LOCATION_PERMISSION = 1
+        val PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+        val PERMISSIONS_S_ABOVE = arrayOf(
+            Manifest.permission.BLUETOOTH_SCAN,
+            Manifest.permission.BLUETOOTH_CONNECT,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
         val LOCATION_PERMISSION = arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION
         )
+        val REQUEST_ALL_PERMISSION = 1
+        val REQUEST_LOCATION_PERMISSION = 2
     }
 
     override fun onResume() {
@@ -50,8 +60,14 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
 
     override fun initVariable() {
         binding.viewModel = viewModel
-        if (!hasPermissions(this, LOCATION_PERMISSION)) {
-            requestPermissions(LOCATION_PERMISSION, REQUEST_LOCATION_PERMISSION)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            if (!hasPermissions(this, PERMISSIONS_S_ABOVE)) {
+                requestPermissions(PERMISSIONS_S_ABOVE, REQUEST_ALL_PERMISSION)
+            }
+        }else{
+            if (!hasPermissions(this, PERMISSIONS)) {
+                requestPermissions(PERMISSIONS, REQUEST_ALL_PERMISSION)
+            }
         }
     }
     override fun initView(){

@@ -43,7 +43,7 @@ class ScanFragment : BaseFragment<FragmentScanBinding, BleViewModel>() {
     }
 
     override fun initObserver() {
-        repeatOnStarted {
+        viewLifecycleOwner.repeatOnStarted {
             viewModel.eventFlow.collect{ event ->
                 handleEvent(event)
             }

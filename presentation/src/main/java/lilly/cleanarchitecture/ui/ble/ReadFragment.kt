@@ -37,7 +37,7 @@ class ReadFragment : BaseFragment<FragmentReadBinding, BleViewModel>() {
 
     }
     override fun initObserver() {
-        repeatOnStarted {
+        viewLifecycleOwner.repeatOnStarted {
             viewModel.eventFlow.collect{ event ->
                 handleEvent(event)
             }
