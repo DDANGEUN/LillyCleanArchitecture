@@ -162,7 +162,7 @@ class BleViewModel @Inject constructor(
                     val hexString: String = bytes.joinToString(separator = " ") {
                         String.format("%02X", it)
                     }
-                    event(Event.ShowNotification("`$hexString` is written.","success"))
+                    event(Event.ShowNotification("write `$hexString`.","success"))
 
                 },{
                     event(Event.ShowNotification("${it.message}", "error"))
