@@ -6,12 +6,10 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import lilly.cleanarchitecture.data.utils.NO_DATA_FROM_LOCAL_DB
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import lilly.cleanarchitecture.base.BaseViewModel
 import lilly.cleanarchitecture.domain.room.model.TextItem
@@ -19,11 +17,9 @@ import lilly.cleanarchitecture.domain.usecase.room.DeleteTextUseCase
 import lilly.cleanarchitecture.domain.usecase.room.GetAllLocalTextsUseCase
 import lilly.cleanarchitecture.domain.usecase.room.GetSearchTextsUseCase
 import lilly.cleanarchitecture.domain.usecase.room.InsertTextUseCase
-import lilly.cleanarchitecture.utils.Util
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @HiltViewModel
 class RoomViewModel @Inject constructor(
@@ -34,70 +30,34 @@ class RoomViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val statusText = ObservableField("Hi! Let's put text in Local DB")
-    val textListObservable: MutableStateFlow<List<TextItem>> = MutableStateFlow(ArrayList())
-    val noDataNotification = ObservableBoolean(false)
 
-    init {
-        getAllTexts()
-    }
+    val noDataNotification = ObservableBoolean(false)
 
 
     @SuppressLint("SimpleDateFormat")
     fun insertText(content: String) {
         val simpleDate = SimpleDateFormat("yyyy-MM-dd HH:mm")
         val strNow: String = simpleDate.format(Date(System.currentTimeMillis()))
-        addDisposable(
+        CoroutineScope(IO).launch {
             insertTextUseCase.execute(TextItem(null, strNow, content))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ id ->
-                    statusText.set("$strNow `$content` is inserted.")
-                }, {
-                    event(Event.ShowNotification("${it.message}", "error"))
-                })
-        )
-
+        }
+        statusText.set("$strNow `$content` is inserted.")
     }
 
-    fun deleteText(textItem: TextItem) = addDisposable(
+    fun deleteText(textItem: TextItem) = CoroutineScope(IO).launch {
         deleteTextUseCase.execute(textItem)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                statusText.set("`${textItem.content}` is deleted.")
-            }, {
-                Util.showNotification("error: ${it.message}", "error")
-            })
-    )
+    }
 
 
-    private fun getAllTexts() = addDisposable(
-        getAllLocalTextsUseCase.execute()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                noDataNotification.set(it.isEmpty())
-                textListObservable.value = it
-            }, {
-            })
-    )
+    fun getAllTexts() = getAllLocalTextsUseCase.execute()
+        .flowOn(IO)
+        .catch { e: Throwable -> event(Event.ShowNotification("${e.message}", "error")) }
 
 
-    fun getSearchTexts(query: String) = addDisposable(
-        getSearchTextsUseCase.execute(query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                noDataNotification.set(false)
-                textListObservable.value = it
-            }, {
-                if (it.message == NO_DATA_FROM_LOCAL_DB) {
-                    noDataNotification.set(true)
-                } else {
-                    event(Event.ShowNotification("${it.message}", "error"))
-                }
-            })
-    )
+    fun getSearchTexts(query: String) = getSearchTextsUseCase.execute(query)
+        .flowOn(IO)
+        .catch { e: Throwable -> event(Event.ShowNotification("${e.message}", "error")) }
+
 
     private val _eventFlow = MutableSharedFlow<Event>()
     val eventFlow = _eventFlow.asSharedFlow()
@@ -110,4 +70,5 @@ class RoomViewModel @Inject constructor(
     sealed class Event {
         data class ShowNotification(val msg: String, val type: String) : Event()
     }
+
 }

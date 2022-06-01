@@ -6,5 +6,5 @@ import lilly.cleanarchitecture.domain.room.model.TextItem
 import javax.inject.Inject
 
 class DeleteTextUseCase @Inject constructor(private val repository: TextRepository) {
-    fun execute(textItem: TextItem): Completable = repository.deleteText(textItem)
+    fun execute(textItem: TextItem) = repository.deleteText(textItem)
 }

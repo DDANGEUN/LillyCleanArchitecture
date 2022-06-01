@@ -9,10 +9,15 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.core.widget.doOnTextChanged
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import lilly.cleanarchitecture.base.BaseActivity
 import lilly.cleanarchitecture.utils.Util.Companion.repeatOnStarted
 import lilly.cleanarchitecture.viewmodel.RoomViewModel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import lilly.cleanarchitecture.R
 import lilly.cleanarchitecture.databinding.ActivityRoomBinding
 import lilly.cleanarchitecture.utils.Util
@@ -43,13 +48,19 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
             }
         }
         initSwipe()
-
     }
 
     override fun initListener() {
-        with(binding){
+        with(binding) {
             etPuttext.doOnTextChanged { text, _, _, _ ->
-                viewModel?.getSearchTexts(text.toString())
+                CoroutineScope(IO).launch {
+                    viewModel?.getSearchTexts(text.toString())?.collect {
+                        CoroutineScope(Main).launch {
+                            textListAdapter?.setItem(it)
+                        }
+                        viewModel?.noDataNotification?.set(it.isEmpty())
+                    }
+                }
             }
             btnPuttext.setOnClickListener {
                 viewModel?.insertText(tlPuttext.editText?.text.toString())
@@ -61,13 +72,13 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
 
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.textListObservable.collect {
-                textListAdapter?.setItem(it)
+            viewModel.eventFlow.collect { event ->
+                handleEvent(event)
             }
         }
         repeatOnStarted {
-            viewModel.eventFlow.collect { event ->
-                handleEvent(event)
+            viewModel.getAllTexts().collect{
+                textListAdapter?.setItem(it)
             }
         }
     }
@@ -77,6 +88,7 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
             Util.showNotification(event.msg, event.type)
         }
     }
+
 
     /**
      * Hiding keyboard
