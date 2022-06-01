@@ -11,8 +11,9 @@ This project is being updated by adding funcitions one by one.
 
  **Using**
   - [Hilt](https://dagger.dev/hilt/)
-  - [RxJava2](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)
+  - [Flow](https://kotlinlang.org/docs/flow.html)
   - [RxAndroidBle](https://github.com/dariuszseweryn/RxAndroidBle)
+  - [Room](https://developer.android.com/topic/libraries/architecture/room)
   - Theme Ref : https://material.io/design/material-studies/shrine.html#components
 
 
