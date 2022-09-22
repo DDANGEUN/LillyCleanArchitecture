@@ -17,7 +17,6 @@ import lilly.cleanarchitecture.utils.Util.Companion.repeatOnStarted
 import lilly.cleanarchitecture.viewmodel.RoomViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import lilly.cleanarchitecture.R
 import lilly.cleanarchitecture.databinding.ActivityRoomBinding
 import lilly.cleanarchitecture.utils.Util
@@ -161,6 +160,9 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
                             itemView.bottom.toFloat()
                         )
                         c.drawRect(background, p)
+                        val radius = resources.getDimension(R.dimen._7dp)
+
+                        c.drawRoundRect(background, radius, radius, p)
                         // icon
                         icon = BitmapFactory.decodeResource(resources, R.drawable.icon_delete)
                         val iconDest = RectF(
