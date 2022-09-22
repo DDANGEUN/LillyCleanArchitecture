@@ -161,6 +161,7 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
                         )
                        // c.drawRect(background, p)
                         val radius = resources.getDimension(R.dimen._7dp)
+
                         c.drawRoundRect(background, radius, radius, p)
                         // icon
                         icon = BitmapFactory.decodeResource(resources, R.drawable.icon_delete)
