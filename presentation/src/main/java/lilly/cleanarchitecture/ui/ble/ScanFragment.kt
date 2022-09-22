@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.polidea.rxandroidble2.scan.ScanResult
 import dagger.hilt.android.AndroidEntryPoint
 import lilly.cleanarchitecture.base.BaseFragment
-import lilly.cleanarchitecture.utils.Util.Companion.repeatOnStarted
+import lilly.cleanarchitecture.utils.Utils.Companion.repeatOnStarted
 import lilly.cleanarchitecture.viewmodel.BleViewModel
 import kotlinx.coroutines.flow.collect
 import lilly.cleanarchitecture.R

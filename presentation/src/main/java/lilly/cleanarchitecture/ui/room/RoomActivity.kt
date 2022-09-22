@@ -13,14 +13,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import lilly.cleanarchitecture.base.BaseActivity
-import lilly.cleanarchitecture.utils.Util.Companion.repeatOnStarted
+import lilly.cleanarchitecture.utils.Utils.Companion.repeatOnStarted
 import lilly.cleanarchitecture.viewmodel.RoomViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import lilly.cleanarchitecture.R
 import lilly.cleanarchitecture.databinding.ActivityRoomBinding
-import lilly.cleanarchitecture.utils.Util
+import lilly.cleanarchitecture.utils.Utils
 
 @AndroidEntryPoint
 class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
@@ -85,7 +84,7 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
 
     private fun handleEvent(event: RoomViewModel.Event) = when (event) {
         is RoomViewModel.Event.ShowNotification -> {
-            Util.showNotification(event.msg, event.type)
+            Utils.showNotification(event.msg, event.type)
         }
     }
 
@@ -160,7 +159,9 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
                             itemView.right.toFloat(),
                             itemView.bottom.toFloat()
                         )
-                        c.drawRect(background, p)
+                       // c.drawRect(background, p)
+                        val radius = resources.getDimension(R.dimen._7dp)
+                        c.drawRoundRect(background, radius, radius, p)
                         // icon
                         icon = BitmapFactory.decodeResource(resources, R.drawable.icon_delete)
                         val iconDest = RectF(

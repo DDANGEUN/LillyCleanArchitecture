@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -20,12 +19,12 @@ import com.google.android.material.tabs.TabLayout
 import com.polidea.rxandroidble2.exceptions.BleScanException
 import dagger.hilt.android.AndroidEntryPoint
 import lilly.cleanarchitecture.base.BaseActivity
-import lilly.cleanarchitecture.utils.Util.Companion.repeatOnStarted
+import lilly.cleanarchitecture.utils.Utils.Companion.repeatOnStarted
 import lilly.cleanarchitecture.viewmodel.BleViewModel
 import kotlinx.coroutines.flow.collect
 import lilly.cleanarchitecture.R
 import lilly.cleanarchitecture.databinding.ActivityBleBinding
-import lilly.cleanarchitecture.utils.Util
+import lilly.cleanarchitecture.utils.Utils
 
 @AndroidEntryPoint
 class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
@@ -97,9 +96,9 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
                     if (data) {
                         binding.tabLayoutBle.selectTab(binding.tabLayoutBle.getTabAt(1))
                         binding.tvConnectedDeviceName.text = deviceName
-                        Util.showNotification("$deviceName Connected", "success")
+                        Utils.showNotification("$deviceName Connected", "success")
                     } else {
-                        Util.showNotification("$deviceName Disconnected", "error")
+                        Utils.showNotification("$deviceName Disconnected", "error")
                     }
                 }
             }
@@ -110,7 +109,7 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
             bleThrowable(event.reason)
         }
         is BleViewModel.Event.ShowNotification->{
-            Util.showNotification(event.msg,event.type)
+            Utils.showNotification(event.msg,event.type)
         }
         else->{}
     }
@@ -196,7 +195,7 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
             requestPermissions(LOCATION_PERMISSION, REQUEST_LOCATION_PERMISSION)
         }
         else -> {
-            Util.showNotification(bleScanExceptionReasonDescription(reason), "error")
+            Utils.showNotification(bleScanExceptionReasonDescription(reason), "error")
         }
     }
 
@@ -220,10 +219,10 @@ class BleActivity: BaseActivity<ActivityBleBinding, BleViewModel>() {
     private val requestEnableBleResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
-                Util.showNotification("Bluetooth기능을 허용하였습니다.", "success")
+                Utils.showNotification("Bluetooth기능을 허용하였습니다.", "success")
                 viewModel.startScan()
             } else {
-                Util.showNotification("Bluetooth기능을 켜주세요.", "error")
+                Utils.showNotification("Bluetooth기능을 켜주세요.", "error")
                 viewModel.startScan()
             }
             requestEnableBluetooth = false

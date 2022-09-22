@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import lilly.cleanarchitecture.base.BaseFragment
-import lilly.cleanarchitecture.utils.Util.Companion.repeatOnStarted
+import lilly.cleanarchitecture.utils.Utils.Companion.repeatOnStarted
 import lilly.cleanarchitecture.viewmodel.BleViewModel
 import java.text.SimpleDateFormat
 import java.util.*

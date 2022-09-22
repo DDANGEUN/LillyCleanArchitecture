@@ -1,8 +1,6 @@
 package lilly.cleanarchitecture.data.dao
 
 import androidx.room.*
-import io.reactivex.Completable
-import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 import lilly.cleanarchitecture.data.model.TextEntity
 

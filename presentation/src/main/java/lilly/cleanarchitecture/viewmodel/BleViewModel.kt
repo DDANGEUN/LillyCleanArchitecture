@@ -60,7 +60,7 @@ class BleViewModel @Inject constructor(
         //scan filter
         statusText.set("Scanning...")
         val scanFilter: ScanFilter = ScanFilter.Builder()
-            .setServiceUuid(ParcelUuid(UUID.fromString(SERVICE_STRING)))
+            //.setServiceUuid(ParcelUuid(UUID.fromString(SERVICE_STRING)))
             //.setDeviceName("")
             .build()
         // scan settings
@@ -154,7 +154,6 @@ class BleViewModel @Inject constructor(
             }
         }
         if (sendByteData != null) {
-
             writeByteDataUseCase.execute(sendByteData)
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())

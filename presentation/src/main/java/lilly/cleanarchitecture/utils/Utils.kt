@@ -10,18 +10,23 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import lilly.cleanarchitecture.MyApplication
 
-class Util {
+class Utils {
     companion object {
         /**
          * @param form - error, success, info, warning, normal, custom
          */
+        const val NOTI_ERROR = "error"
+        const val NOTI_SUCCESS= "success"
+        const val NOTI_INFO = "info"
+        const val NOTI_WARNING = "warning"
+        const val NOTI_NORMAL = "normal"
         fun showNotification(msg: String, form: String) {
             when(form){
-                "error"->{ Toasty.error(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
-                "success"->{ Toasty.success(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
-                "info"->{ Toasty.info(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
-                "warning"->{ Toasty.warning(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
-                "normal"->{ Toasty.normal(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
+                NOTI_ERROR->{ Toasty.error(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
+                NOTI_SUCCESS->{ Toasty.success(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
+                NOTI_INFO->{ Toasty.info(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
+                NOTI_WARNING->{ Toasty.warning(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
+                NOTI_NORMAL->{ Toasty.normal(MyApplication.applicationContext(), msg, Toast.LENGTH_SHORT).show()}
             }
 
         }

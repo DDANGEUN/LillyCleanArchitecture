@@ -17,6 +17,7 @@ import lilly.cleanarchitecture.domain.usecase.room.DeleteTextUseCase
 import lilly.cleanarchitecture.domain.usecase.room.GetAllLocalTextsUseCase
 import lilly.cleanarchitecture.domain.usecase.room.GetSearchTextsUseCase
 import lilly.cleanarchitecture.domain.usecase.room.InsertTextUseCase
+import lilly.cleanarchitecture.utils.Utils.Companion.NOTI_ERROR
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -51,12 +52,12 @@ class RoomViewModel @Inject constructor(
 
     fun getAllTexts() = getAllLocalTextsUseCase.execute()
         .flowOn(IO)
-        .catch { e: Throwable -> event(Event.ShowNotification("${e.message}", "error")) }
+        .catch { e: Throwable -> event(Event.ShowNotification("${e.message}", NOTI_ERROR)) }
 
 
     fun getSearchTexts(query: String) = getSearchTextsUseCase.execute(query)
         .flowOn(IO)
-        .catch { e: Throwable -> event(Event.ShowNotification("${e.message}", "error")) }
+        .catch { e: Throwable -> event(Event.ShowNotification("${e.message}", NOTI_ERROR)) }
 
 
     private val _eventFlow = MutableSharedFlow<Event>()
