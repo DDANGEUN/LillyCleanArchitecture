@@ -159,6 +159,7 @@ class RoomActivity : BaseActivity<ActivityRoomBinding, RoomViewModel>() {
                             itemView.right.toFloat(),
                             itemView.bottom.toFloat()
                         )
+
                        // c.drawRect(background, p)
                         val radius = resources.getDimension(R.dimen._7dp)
 
